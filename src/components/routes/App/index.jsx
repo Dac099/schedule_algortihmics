@@ -3,7 +3,7 @@ import {
   Outlet,
   useLocation 
 } from "react-router-dom"
-import { Schedule } from "../Schedule";
+import { Schedule } from "../../Schedule";
 
 function App(){
   const location = useLocation();
