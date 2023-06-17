@@ -17,13 +17,25 @@ async function getInstructorById(id){
 async function getAllLessons(){
   const queryDB = query(collection(db, 'lessons'));
   const querySnapshot = await getDocs(queryDB);
+  const lessons = [];
 
-  querySnapshot.forEach(doc => {
-    console.log(doc.id, doc.data());
-  });
+  querySnapshot.forEach(doc => lessons.push(doc.data()));
+
+  return lessons;
+}
+
+async function getAllInstructors(){
+  const queryDB = query(collection(db, 'instructors'));
+  const querySnashot = await getDocs(queryDB);
+  const instructors = [];
+
+  querySnashot.forEach(doc => instructors.push(doc.data()))
+
+  return instructors;
 }
 
 export {
   getInstructorById,
-  getAllLessons
+  getAllLessons,
+  getAllInstructors,
 };
