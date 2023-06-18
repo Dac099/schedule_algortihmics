@@ -1,0 +1,20 @@
+:root
+{
+  --purple: #602B7A;
+  --yellow: #FFD749;
+  --pink: #F44C75;
+  --white: #FFF;
+}
+
+* 
+{
+  margin: 0;  
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+html
+{
+  font-size: 62.5%;
+}

@@ -1,0 +1,24 @@
+.instructor_card
+{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem 0rem;
+  border: 0.2rem solid var(--purple);
+  border-radius: 1rem;
+  padding: 1rem 0rem;
+  background-color: var(--yellow);
+  cursor: default;
+}
+
+.instructor_card svg
+{
+  font-size: 6rem;
+}
+
+.instructor_card p
+{
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--purple);
+}

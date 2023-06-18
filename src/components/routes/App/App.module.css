@@ -1,0 +1,46 @@
+.nav_container
+{
+  padding: 1.5rem;
+  background-color: var(--purple);
+}
+
+.nav_options
+{
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+
+.nav_options li a{
+  display: flex;
+  align-items: center;
+  grid-template-columns: 18px 1fr;
+  gap: 0.5rem;
+  width: max-content;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--white);
+  padding: 0.5rem;
+  
+}
+
+.show
+{
+  display: inline;
+}
+
+.hide 
+{
+  display: none;
+}
+
+.nav_container .nav_options .selected
+{
+  background-color: var(--yellow);
+  color: var(--purple);
+  border-radius: 0.8rem;
+}
