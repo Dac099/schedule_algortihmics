@@ -1,7 +1,7 @@
 .calendar_container
 {
   display: grid;
-  grid-template-columns: 4fr 1fr;
+  grid-template-columns: 300px 1fr;
   padding: 1rem;
   gap: 1rem;
 }
@@ -20,3 +20,25 @@
   grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
 }
+
+.instructors_container
+{
+  display: grid;
+  place-content: center;
+  grid-auto-columns: 250px;
+  padding: 0px 1rem;
+}
+
+/* .instructors_section
+{
+  border: 1px solid lightslategray;
+  border-radius: 0.8rem;
+}
+
+
+.calendar_section
+{
+  border: 1px solid lightslategray;
+  border-radius: 0.8rem;
+  padding: 1rem 1rem;
+} */

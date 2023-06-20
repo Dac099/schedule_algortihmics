@@ -1,13 +1,15 @@
 import styles from './Schedule.module.css';
 import { getDaysByMonth } from "../../utils/getDays";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { DayWeek } from "../DayWeek";
 import { getMonth } from "../../utils/transformDates";
+import { InstructorProfile } from '../InstructorProfile';
+import { LessonsContext } from '../../Context/Lessons';
+import { Modal } from "../Modal/index"
 import { 
   getAllLessons,
   getAllInstructors, 
 } from "../../firebase/firestore";
-import { InstructorProfile } from '../InstructorProfile';
 
 function Schedule(){
   const month = new Date().getMonth();
@@ -18,6 +20,7 @@ function Schedule(){
   const [isLoading, setIsLoading] = useState(true);
   const [onError, setOnError] = useState(false);
   const [firstDayMonthReference, setFirstDayMonthReference] = useState(0);
+  const {showModal, setShowModal} = useContext(LessonsContext);
 
   useEffect(() => {
     const fetchAllLessons = async () => {
@@ -34,17 +37,20 @@ function Schedule(){
 
     fetchAllLessons();
 
-    //Recorrer el arreglo days
-    //Obtener el primer elemento de sus arreglos
-    //Otener la fecha que es menor
-    //De la fecha menor obtener su dia y asignarla en firstDayMonthReference
+    /**
+     * Se recorre el arreglo de los dias para poder saber en que dia de la semana
+     * empieza el mes y asi desplegar las tarjetas de dias en orden
+    */
     const firstElements = days.map(day => day[0]);
     const firstDate = firstElements.filter(element => new Date(element).getDate() === 1);
   
     setFirstDayMonthReference(new Date(firstDate).getDay())
   }, []);
   
-
+  function filterLessonsByDay(day){
+    return lessons.filter(lesson => lesson.day === day);
+  }
+  
   //Todo: Hacer componente de carga
   //Todo: Hacer el componente de error
 
@@ -60,18 +66,34 @@ function Schedule(){
     );
   }
 
-  function filterLessonsByDay(day){
-    return lessons.filter(lesson => lesson.day === day);
-  }
-
   return (
     <article className={styles.calendar_container}>
-      <section>
+      <section className={styles.instructors_section}>
+
+        <p
+          className={styles.section_title}
+        >
+          Maestros 
+        </p>
+
+        <section className={styles.instructors_container}>
+          {instructors.map(instructor => (
+            <InstructorProfile 
+              instructor_name={instructor.name}
+              key={instructor.name}
+            />
+          ))}
+        </section>
+
+      </section>
+
+      <section className={styles.calendar_section}>
         <p
           className={styles.section_title}
         >
           {`${getMonth(month)} ${year}`}
         </p>
+
         <article className={styles.calendar_week}>
           <DayWeek 
             day={'Lunes'}  
@@ -116,26 +138,8 @@ function Schedule(){
             dayReference={firstDayMonthReference}
           />
         </article>
-      </section>
-      
-      <section>
-
-        <p
-          className={styles.section_title}
-        >
-          Maestros 
-        </p>
-
-        <section>
-          {instructors.map(instructor => (
-            <InstructorProfile 
-              instructor_name={instructor.name}
-              key={instructor.name}
-            />
-          ))}
-        </section>
-
-      </section>
+      </section>  
+      {showModal && <Modal content={'holaaa'}/>}
     </article>
   )
 }
