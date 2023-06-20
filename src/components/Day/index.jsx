@@ -3,8 +3,7 @@ import { useContext } from "react";
 import { LessonsContext } from "../../Context/Lessons";
 
 function Day({date, lessons}){
-  const {setShowModal} = useContext(LessonsContext);
-
+  const {setShowModal, setLessonsData} = useContext(LessonsContext);
 
   if(date === ''){
     return (
@@ -22,18 +21,24 @@ function Day({date, lessons}){
   return (
     <section 
       className={styles.day_card}
-      onClick={() => setShowModal(true)}
+      onClick={() => {
+        setLessonsData(lessons)
+        setShowModal(true);
+      }}
     >
 
       <p className={styles.date}>{date}</p>
 
       <section className={styles.data_lessons}>
+
         <p>
           <span>{lessons.length}</span> Clases Regulares
         </p>
+
         <p>
           <span>0</span> Clases muestra
         </p>
+
       </section>
     </section>
   );

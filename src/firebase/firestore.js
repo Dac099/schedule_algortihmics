@@ -1,25 +1,29 @@
-import { collection, doc, getDocs, getFirestore, query } from 'firebase/firestore';
+import { collection, doc, getDocs, getFirestore, query, getDoc } from 'firebase/firestore';
 import { app } from './firebase_sdk';
 
 const db = getFirestore(app);
-
-async function getInstructorById(id){
-  const docRef = doc(db, 'instructors', id);
-  const docSnap = await getDoc(docRef);
-
-  if(docSnap.exists()){
-    console.log('Instructor data:', docSnap.data());
-  }else{
-    console.log('Instructor no encontrado');
-  }
-}
 
 async function getAllLessons(){
   const queryDB = query(collection(db, 'lessons'));
   const querySnapshot = await getDocs(queryDB);
   const lessons = [];
 
-  querySnapshot.forEach(doc => lessons.push(doc.data()));
+  querySnapshot.forEach(async doc => {
+    const instructorRef = doc.data().instructor;
+    const instructorDoc = await getDoc(instructorRef);
+
+    if (instructorDoc.exists()) {
+      lessons.push({
+        ...doc.data(),
+        instructor: instructorDoc.data().name
+      });
+    } else {
+      lessons.push({
+        ...doc.data(),
+        instructor: null
+      });
+    }
+  });
 
   return lessons;
 }
@@ -35,7 +39,6 @@ async function getAllInstructors(){
 }
 
 export {
-  getInstructorById,
   getAllLessons,
   getAllInstructors,
 };

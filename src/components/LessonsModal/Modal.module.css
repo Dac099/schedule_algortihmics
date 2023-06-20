@@ -1,0 +1,66 @@
+.modal_container
+{
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 1;
+  color: #000;
+  padding: 0rem 2rem;
+  padding-top: 4rem;
+  gap: 2rem;
+}
+
+.close_btn
+{
+  position: absolute;
+  justify-self: center;
+  font-size: 5rem;
+  cursor: pointer;
+  color: var(--purple);
+  background-color: var(--yellow);
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: grid;
+  place-content: center;
+  border: 1px solid var(--purple);
+  margin-top: 1rem;
+}
+
+.lessons_container
+{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+section .title
+{
+  font-size: 2rem;
+  margin: 2rem 0rem;
+  font-weight: bold;
+  background-color: var(--pink);
+  padding: 0.5rem;
+  border-radius: 0.8rem;
+  color: #fff;
+}
+
+.lesson_card
+{
+  border: 2px solid var(--purple);
+  width: 350px;
+  background-color: var(--yellow);
+}
+
+.lesson_card td
+{
+  border: 1px solid var(--purple);
+  font-size: 1.6rem;
+  padding: 0.5rem 1rem;
+}

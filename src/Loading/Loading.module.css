@@ -1,0 +1,22 @@
+.spinner
+{
+  width: 25rem;
+  height: 25rem;
+  animation: spin 1s ease-in infinite;
+  color: var(--pink);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

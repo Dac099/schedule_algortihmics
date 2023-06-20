@@ -5,7 +5,9 @@ import { DayWeek } from "../DayWeek";
 import { getMonth } from "../../utils/transformDates";
 import { InstructorProfile } from '../InstructorProfile';
 import { LessonsContext } from '../../Context/Lessons';
-import { Modal } from "../Modal/index"
+import { LessonsModal } from "../LessonsModal/index"
+import { Loading } from '../../Loading';
+import { MdError } from "react-icons/md";
 import { 
   getAllLessons,
   getAllInstructors, 
@@ -56,13 +58,20 @@ function Schedule(){
 
   if(isLoading){
     return (
-      <h1>Obteniendo la informacion</h1>
+      <article className={styles.loader_container}>
+        <Loading />
+      </article>
     );
   }
 
   if(onError){
     return (
-      <h1>Error al obtener la informacion, intentalo mas tarde</h1>
+      <article className={styles.error_text}>
+        <h1>
+          <MdError />
+          Error al obtener la informacion, intentalo mas tarde
+        </h1>
+      </article>
     );
   }
 
@@ -139,7 +148,7 @@ function Schedule(){
           />
         </article>
       </section>  
-      {showModal && <Modal content={'holaaa'}/>}
+      {showModal && <LessonsModal />}
     </article>
   )
 }
