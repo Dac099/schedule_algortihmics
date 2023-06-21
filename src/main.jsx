@@ -6,7 +6,9 @@ import {
   RouterProvider 
 } from 'react-router-dom'
 import { App } from './components/routes/App'
+import { Instructors } from './components/routes/Instructors'
 import { LessonsProvider } from './Context/Lessons';
+import { AppContextProvider } from './Context/AppData';
 
 const router = createBrowserRouter([
   {
@@ -15,11 +17,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "clases",
-        element: <h1>Las clases muestra</h1>
+        element: <Instructors />
       },
       {
         path: "instructores",
-        element: <h1>Se muestran los instructores</h1>
+        element: <Instructors />
       }
     ],
   }
@@ -27,8 +29,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <LessonsProvider>
-      <RouterProvider router={router}/>
-    </LessonsProvider>
+    <AppContextProvider>
+      <LessonsProvider>
+        <RouterProvider router={router}/>
+      </LessonsProvider>
+    </AppContextProvider>
   </React.StrictMode>,
 )

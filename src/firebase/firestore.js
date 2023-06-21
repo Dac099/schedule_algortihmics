@@ -8,22 +8,26 @@ async function getAllLessons(){
   const querySnapshot = await getDocs(queryDB);
   const lessons = [];
 
-  querySnapshot.forEach(async doc => {
+  const promises = querySnapshot.docs.map(async doc => {
     const instructorRef = doc.data().instructor;
     const instructorDoc = await getDoc(instructorRef);
 
     if (instructorDoc.exists()) {
-      lessons.push({
+      const instructorData = instructorDoc.data();
+      return {
         ...doc.data(),
-        instructor: instructorDoc.data().name
-      });
+        instructor: instructorData.name
+      };
     } else {
-      lessons.push({
+      return {
         ...doc.data(),
-        instructor: null
-      });
+        instructor: ''
+      };
     }
   });
+
+  const results = await Promise.all(promises);
+  lessons.push(...results);
 
   return lessons;
 }
@@ -31,9 +35,9 @@ async function getAllLessons(){
 async function getAllInstructors(){
   const queryDB = query(collection(db, 'instructors'));
   const querySnashot = await getDocs(queryDB);
-  const instructors = [];
+  let instructors = [];
 
-  querySnashot.forEach(doc => instructors.push(doc.data()))
+  instructors = [...querySnashot.docs.map(doc => doc.data())];
 
   return instructors;
 }

@@ -22,3 +22,9 @@
   font-weight: 600;
   color: var(--purple);
 }
+
+.instructor_card .phone
+{
+  text-align: right;
+  font-weight: 400;
+}

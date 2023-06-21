@@ -7,7 +7,7 @@ import { InstructorProfile } from '../InstructorProfile';
 import { LessonsContext } from '../../Context/Lessons';
 import { LessonsModal } from "../LessonsModal/index"
 import { Loading } from '../../Loading';
-import { MdError } from "react-icons/md";
+import { Error } from '../Error';
 import { 
   getAllLessons,
   getAllInstructors, 
@@ -34,6 +34,7 @@ function Schedule(){
       } catch (error) {
         setIsLoading(false);
         setOnError(true);
+        console.log(error)
       }
     }
 
@@ -52,9 +53,6 @@ function Schedule(){
   function filterLessonsByDay(day){
     return lessons.filter(lesson => lesson.day === day);
   }
-  
-  //Todo: Hacer componente de carga
-  //Todo: Hacer el componente de error
 
   if(isLoading){
     return (
@@ -66,12 +64,7 @@ function Schedule(){
 
   if(onError){
     return (
-      <article className={styles.error_text}>
-        <h1>
-          <MdError />
-          Error al obtener la informacion, intentalo mas tarde
-        </h1>
-      </article>
+      <Error msg="Error al obtener los datos, intentalo mas tarde."/>
     );
   }
 

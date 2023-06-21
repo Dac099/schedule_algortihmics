@@ -36,11 +36,4 @@
   height: 80vh;
  }
 
- .error_text
- {
-  color: var(--pink);
-  font-size: 3rem;
-  display: grid;
-  place-content: center;
-  place-items: center;
- }
+ 

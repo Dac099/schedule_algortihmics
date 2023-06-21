@@ -1,0 +1,29 @@
+.container
+{
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.container__instructors
+{
+  display: grid;
+  width: 25rem;
+  grid-auto-rows: min-content;
+  gap: 1rem;
+  align-items: start;
+}
+
+.container__lessons
+{
+  display: grid;
+  grid-template-columns: repeat(6, max(180px));
+  justify-content: center;
+  grid-auto-rows: 150px;
+  gap: 1rem;
+}
+
+.container__lesson_card
+{
+  border: 1px solid var(--purple);
+}
