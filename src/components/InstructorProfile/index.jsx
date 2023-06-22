@@ -12,8 +12,15 @@ function InstructorProfile({instructor_name, instructor_phone, action}){
 
   return (
     <article 
-      className={styles.instructor_card}
+      className={instructor_phone 
+        ? `${styles.instructor_card} ${styles.instructor_card__hover}`
+        : styles.instructor_card
+      }
       onClick={handleClick}
+      style={instructor_phone 
+        ? {cursor:"pointer"} 
+        : {cursor:"default"}
+      }
     >
 
       <HiUserCircle 

@@ -28,3 +28,8 @@
   text-align: right;
   font-weight: 400;
 }
+
+.instructor_card__hover:hover
+{
+  box-shadow: 2px 2px 0px 1px var(--purple);
+}

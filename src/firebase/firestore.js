@@ -1,4 +1,12 @@
-import { collection, doc, getDocs, getFirestore, query, getDoc } from 'firebase/firestore';
+import { 
+  collection, 
+  doc, 
+  getDocs, 
+  getFirestore, 
+  query, 
+  getDoc,
+  addDoc 
+} from 'firebase/firestore';
 import { app } from './firebase_sdk';
 
 const db = getFirestore(app);
@@ -42,7 +50,17 @@ async function getAllInstructors(){
   return instructors;
 }
 
+async function addInstructor(data){
+  const docRef = await addDoc(collection(db, 'instructors'),
+    {
+      name: data.name,
+      phone: data.phone
+    }
+  );
+}
+
 export {
   getAllLessons,
   getAllInstructors,
+  addInstructor
 };

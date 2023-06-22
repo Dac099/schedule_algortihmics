@@ -11,11 +11,14 @@ function AppContextProvider({children}){
   React.useEffect(() => {
     async function fetchAppData(){
       try {
+
         setInstructors(await getAllInstructors());        
         setLessons(await getAllLessons());
         setIsLoading(false);
+
       } catch (error) {
-        setOnError(true);
+        
+        setOnError(true);        
         setIsLoading(false);
         console.log(error);
       }
