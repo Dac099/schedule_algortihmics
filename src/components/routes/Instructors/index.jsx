@@ -7,6 +7,7 @@ import { InstructorProfile } from "../../InstructorProfile";
 import { AiFillEdit } from "react-icons/ai";
 import { InstructorsModal } from "../../InstructorsModal";
 import { InstructorForm } from "../../InstructorForm";
+import { LessonForm } from "../../LessonForm";
 
 function Instructors(){
   const { 
@@ -17,7 +18,7 @@ function Instructors(){
   } = React.useContext(AppContext);
   const [ instructorSelected, setInstructorSelected ] = React.useState('');
   const [instructorLessons, setInstructorLessons] = React.useState([]);
-  const [ showModal, setShowModal ] = React.useState(true);
+  const [ showModal, setShowModal ] = React.useState(false);
   const [ instructorData, setInstructorData ] = React.useState(null);
   const [ lessonData, setLessonData ] = React.useState(null);
   const [ modalMode, setModalMode ] = React.useState(null);
@@ -54,7 +55,7 @@ function Instructors(){
           type="button"
           className={styles.add_instructor__btn}
           onClick={() => {
-            setModalMode('new-instructor')
+            setModalMode('instructors')
             setShowModal(true);            
           }}
         >
@@ -77,6 +78,10 @@ function Instructors(){
           <button 
             type="button"
             className={styles.add_btn}
+            onClick={() => {
+              setModalMode('lessons')
+              setShowModal(true);
+            }}
           >
             Aregar clase
           </button>
@@ -111,7 +116,14 @@ function Instructors(){
                     border: "none",
                   }}
                 >
-                <AiFillEdit className={styles.edit_btn}/>
+                <AiFillEdit 
+                  className={styles.edit_btn}
+                  onClick={() => {
+                    setLessonData(lesson);
+                    setModalMode('lessons');
+                    setShowModal(true);                    
+                  }}
+                />
                 </td>
               </tr>
             </tbody>
@@ -121,9 +133,17 @@ function Instructors(){
       
       {
         showModal && 
-        modalMode === 'new-instructor' &&         
+        modalMode === 'instructors' &&
         <InstructorsModal>
           <InstructorForm setShowModal={setShowModal} data={instructorData}/>
+        </InstructorsModal>
+      }
+
+      {
+        showModal &&
+        modalMode === 'lessons' &&
+        <InstructorsModal>
+          <LessonForm setShowModal={setShowModal} data={lessonData} instructor_name={instructorSelected}/>
         </InstructorsModal>
       }
 

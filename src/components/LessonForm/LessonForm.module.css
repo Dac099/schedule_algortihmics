@@ -1,0 +1,73 @@
+.lesson_form{
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  display: grid;
+  grid-template-rows: repeat(4, 10rem) 5rem;
+  gap: 1rem;
+  width: 37rem;
+}
+
+.lesson_form div
+{
+  display: grid;
+  grid-template-rows: 30% 70%;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--purple);
+}
+
+.lesson_form input
+{
+  border: 2px solid var(--purple);
+  border-radius: 0.6rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  height: 80%;
+}
+
+.lesson_form input:focus
+{
+  outline-color: var(--pink);
+}
+
+.lesson_form label
+{
+  align-self: self-end;
+}
+
+.lesson_form .input_hours
+{
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 1rem;
+}
+
+.input_hours div input
+{
+  width: 100%;
+}
+
+.lesson_form .action_btns
+{
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+  gap: 1rem;
+}
+
+.lesson_form .action_btns button:nth-child(1)
+{ 
+  border: 2px solid var(--pink);
+  background-color: #fff;
+  border-radius: 0.6rem;
+  color: var(--pink);
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.lesson_form .action_btns button:nth-child(2)
+{ 
+
+}

@@ -10,11 +10,8 @@ function InstructorForm({data, setShowModal}){
   });
 
   React.useEffect(() => {
-    if(data !== null){
-      setInstructorData({
-        name: data.name,
-        phone: data.phone
-      })
+    if(data){
+      setInstructorData(data)
     }
   }, []);
 
@@ -63,11 +60,23 @@ function InstructorForm({data, setShowModal}){
         />
       </div>
 
-      <button 
-        type="submit"
-      >
-        Agregar profesor
-      </button>
+      <div className={styles.action_btns}>
+        <button 
+          type="button"
+          onClick={() => setShowModal(false)}
+          className={styles.cancel_btn}
+        >
+          Cancelar
+        </button>
+
+        <button 
+          type="submit"
+          className={styles.submit_btn}
+        >
+          Agregar profesor
+        </button>      
+      </div>
+
     </form>
   );
 }
