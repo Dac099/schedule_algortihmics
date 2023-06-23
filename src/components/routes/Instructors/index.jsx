@@ -6,6 +6,7 @@ import { Error } from "../../Error";
 import { InstructorProfile } from "../../InstructorProfile";
 import { AiFillEdit } from "react-icons/ai";
 import { InstructorsModal } from "../../InstructorsModal";
+import { InstructorForm } from "../../InstructorForm";
 
 function Instructors(){
   const { 
@@ -17,6 +18,11 @@ function Instructors(){
   const [ instructorSelected, setInstructorSelected ] = React.useState('');
   const [instructorLessons, setInstructorLessons] = React.useState([]);
   const [ showModal, setShowModal ] = React.useState(true);
+  const [ instructorData, setInstructorData ] = React.useState(null);
+  const [ lessonData, setLessonData ] = React.useState(null);
+  const [ modalMode, setModalMode ] = React.useState(null);
+ 
+
 
   React.useEffect(() => {
 
@@ -43,12 +49,18 @@ function Instructors(){
     <article className={styles.container}>
 
       <section className={styles.container__instructors}>
+
         <button 
           type="button"
           className={styles.add_instructor__btn}
+          onClick={() => {
+            setModalMode('new-instructor')
+            setShowModal(true);            
+          }}
         >
           Agregar maestro
         </button>
+
         {instructors.map(instructor => (
           <InstructorProfile 
             instructor_name={instructor.name}
@@ -107,7 +119,13 @@ function Instructors(){
         ))}
       </section>
       
-      {showModal && <InstructorsModal />}
+      {
+        showModal && 
+        modalMode === 'new-instructor' &&         
+        <InstructorsModal>
+          <InstructorForm setShowModal={setShowModal} data={instructorData}/>
+        </InstructorsModal>
+      }
 
     </article>
   );
