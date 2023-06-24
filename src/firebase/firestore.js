@@ -5,7 +5,9 @@ import {
   getFirestore, 
   query, 
   getDoc,
-  addDoc 
+  addDoc,
+  setDoc, 
+  where
 } from 'firebase/firestore';
 import { app } from './firebase_sdk';
 
@@ -15,7 +17,6 @@ async function getAllLessons(){
   const queryDB = query(collection(db, 'lessons'));
   const querySnapshot = await getDocs(queryDB);
   const lessons = [];
-
   const promises = querySnapshot.docs.map(async doc => {
     const instructorRef = doc.data().instructor;
     const instructorDoc = await getDoc(instructorRef);
@@ -24,12 +25,14 @@ async function getAllLessons(){
       const instructorData = instructorDoc.data();
       return {
         ...doc.data(),
-        instructor: instructorData.name
+        instructor: instructorData.name,
+        id: doc.id
       };
     } else {
       return {
         ...doc.data(),
-        instructor: ''
+        instructor: '',
+        id: doc.id
       };
     }
   });
@@ -59,8 +62,35 @@ async function addInstructor(data){
   );
 }
 
+async function addLesson(data){ 
+  const newData = {
+    ...data, 
+    instructor: await getInstructorByName(data.instructor) 
+  };
+  
+  const dataToPush = {...newData};
+  delete dataToPush.id;
+
+  if(data.id !== ''){
+    const docRef = await setDoc(doc(db, 'lessons', data.id), dataToPush);
+  }else{
+    delete data.id;
+    const docRef = await addDoc(collection(db, 'lessons'), dataToPush);
+  }
+}
+
+async function getInstructorByName(name){
+  const queryDB = query(collection(db, 'instructors'), where('name', '==', name));
+  const querySnapshots = await getDocs(queryDB);
+
+  const instructorRef = doc(db, 'instructors', querySnapshots.docs[0].id)
+
+  return instructorRef;
+}
+
 export {
   getAllLessons,
   getAllInstructors,
-  addInstructor
+  addInstructor, 
+  addLesson,
 };

@@ -65,9 +65,27 @@
   color: var(--pink);
   font-weight: bold;
   font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.lesson_form .action_btns button:nth-child(1):hover
+{
+  background-color: var(--pink);
+  color: #fff;
 }
 
 .lesson_form .action_btns button:nth-child(2)
 { 
+  border: 2px solid var(--purple);
+  color: var(--purple);
+  font-weight: bold;
+  background-color: var(--yellow);
+  border-radius: 0.6rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
 
+.lesson_form .action_btns button:nth-child(2):hover{
+  background-color: var(--purple);
+  color: var(--yellow);
 }

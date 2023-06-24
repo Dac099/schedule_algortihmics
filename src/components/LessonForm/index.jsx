@@ -1,13 +1,15 @@
 import styles from "./LessonForm.module.css";
 import React from "react";
 import swal from "sweetalert";
+import { addLesson } from "../../firebase/firestore";
 
-function LessonForm({setShowModal, data, instructor_name}){
+function LessonForm({setShowModal, data, instructor_name, setData}){
   const [ lessonData, setLessonData ] = React.useState({
     day: '',
     hours: ['00:00', '00:00', '00:00', '00:00',],
     instructor: '',
     lesson_name: '',
+    id: ''
   });
 
   const [ startHour, setStartHour ] = React.useState("00:00");
@@ -16,6 +18,8 @@ function LessonForm({setShowModal, data, instructor_name}){
   React.useEffect(() => {
     if(data){
       setLessonData(data);
+      setStartHour(data.hours[0]);
+      setEndHour(data.hours[data.hours.length - 1]);
     }else{
       setLessonData({
         ...lessonData,
@@ -28,14 +32,15 @@ function LessonForm({setShowModal, data, instructor_name}){
     e.preventDefault();
     let hours  = [];
     hours = lessonData.hours.splice(0, 1, startHour);
-    hours = lessonData.hours.splice(lessonData.hours,length - 1, 1, endHour);
+    hours = lessonData.hours.splice(lessonData.hours.length - 1, 1, endHour);
 
     setLessonData({
       ...lessonData,
       hours: hours
     });
 
-    console.log(lessonData);
+    addLesson(lessonData);
+    setData(null);
 
     swal(
       'Clase agregada correctamente',
@@ -122,10 +127,14 @@ function LessonForm({setShowModal, data, instructor_name}){
       <div className={styles.action_btns}>
         <button 
           type="button"
-          onClick={() => setShowModal(false)}
+          onClick={() => {
+            setShowModal(false);
+            setData(null);
+          }}
         >
           Cancelar
         </button>
+
         <button 
           type="submit"
         >

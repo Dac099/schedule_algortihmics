@@ -143,7 +143,7 @@ function Instructors(){
         showModal &&
         modalMode === 'lessons' &&
         <InstructorsModal>
-          <LessonForm setShowModal={setShowModal} data={lessonData} instructor_name={instructorSelected}/>
+          <LessonForm setShowModal={setShowModal} data={lessonData} instructor_name={instructorSelected} setData={setLessonData}/>
         </InstructorsModal>
       }
 
