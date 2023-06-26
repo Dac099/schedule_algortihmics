@@ -1,9 +1,17 @@
 import styles from "./LessonForm.module.css";
 import React from "react";
 import swal from "sweetalert";
-import { addLesson } from "../../firebase/firestore";
+import { MdDelete } from "react-icons/md";
+import { addLesson, deleteLesson } from "../../firebase/firestore";
 
-function LessonForm({setShowModal, data, instructor_name, setData}){
+function LessonForm({
+  setShowModal, 
+  data, 
+  instructor_name, 
+  setData, 
+  setFetchData,
+  setInstructorSelected
+}){
   const [ lessonData, setLessonData ] = React.useState({
     day: '',
     hours: ['00:00', '00:00', '00:00', '00:00',],
@@ -46,7 +54,25 @@ function LessonForm({setShowModal, data, instructor_name, setData}){
       'Clase agregada correctamente',
       '',
       'success'
-    ).then(value => setShowModal(false))
+    ).then(value => {
+      setShowModal(false);
+      setInstructorSelected('');
+      setFetchData(prevState => !prevState);
+    })
+  }
+
+  function handleDelete(lesson_id){
+    deleteLesson(lesson_id);
+    swal(
+      'Lección eliminada',
+      '',
+      'success'
+    ).then(data => {
+      setShowModal(false);
+      setData(null);
+      setInstructorSelected('');
+      setFetchData(prevState => !prevState);
+    });
   }
 
   return (
@@ -124,19 +150,28 @@ function LessonForm({setShowModal, data, instructor_name, setData}){
 
       </div>
 
-      <div className={styles.action_btns}>
+      <div 
+        className={!data ? styles.action_btns : styles.action_btns__delete}
+      >
+        {data && <MdDelete 
+          onClick={() => handleDelete(data.id)}
+          className={styles.delete_btn}
+          />
+        }
         <button 
           type="button"
           onClick={() => {
             setShowModal(false);
             setData(null);
           }}
+          className={styles.cancel_btn}
         >
           Cancelar
         </button>
 
         <button 
           type="submit"
+          className={styles.submit_btn}
         >
           Agregar clase
         </button>

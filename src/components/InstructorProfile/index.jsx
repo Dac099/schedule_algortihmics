@@ -1,23 +1,35 @@
 import { HiUserCircle } from "react-icons/hi2";
 import styles from "./InstructorProfile.module.css";
 import uniqolor from 'uniqolor';
+import { AiFillEdit } from "react-icons/ai";
 
-function InstructorProfile({instructor_name, instructor_phone, action}){
+
+function InstructorProfile({
+  data,
+  action,
+  onEdit,
+  setShowModal,
+  setModalMode,
+  setInstructorData,
+}){
 
   function handleClick(){
     if(action){
-      action(instructor_name);
+      action(data.name);
     }
   }
 
+
   return (
     <article 
-      className={instructor_phone 
+      className={
+        onEdit 
         ? `${styles.instructor_card} ${styles.instructor_card__hover}`
         : styles.instructor_card
       }
       onClick={handleClick}
-      style={instructor_phone 
+      style={
+        onEdit 
         ? {cursor:"pointer"} 
         : {cursor:"default"}
       }
@@ -27,24 +39,40 @@ function InstructorProfile({instructor_name, instructor_phone, action}){
         style={{
           color: uniqolor.random().color
         }}
+        className={styles.user_picture}
       />
 
-      <section>
+      <section
+        className={styles.user_data}
+      >
         <p 
           id="name"
-          datatype={instructor_name}
+          className={styles.instructor_name}
         >
-          {instructor_name}
+          {data.name}
         </p>
 
-        {instructor_phone && 
+        {onEdit && 
           <p 
             className={styles.phone}
           >
-            {instructor_phone}
+            {data.phone}
           </p>
         }
       </section>
+
+      <div
+        className={styles.edit_btn}
+      >
+        <AiFillEdit
+          onClick={() => {
+            setModalMode('instructors');
+            setInstructorData(data);
+            setShowModal(true);
+          }}
+        />
+      </div>
+       
 
     </article>
   );

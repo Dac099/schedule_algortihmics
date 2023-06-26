@@ -7,7 +7,8 @@ import {
   getDoc,
   addDoc,
   setDoc, 
-  where
+  where,
+  deleteDoc
 } from 'firebase/firestore';
 import { app } from './firebase_sdk';
 
@@ -48,7 +49,12 @@ async function getAllInstructors(){
   const querySnashot = await getDocs(queryDB);
   let instructors = [];
 
-  instructors = [...querySnashot.docs.map(doc => doc.data())];
+  querySnashot.docs.forEach(doc => {
+    instructors.push({
+      ...doc.data(),
+      id: doc.id
+    });
+  })
 
   return instructors;
 }
@@ -88,9 +94,18 @@ async function getInstructorByName(name){
   return instructorRef;
 }
 
+async function deleteLesson(lesson_id){
+  await deleteDoc(doc(db, 'lessons', lesson_id));
+}
+
+async function deleteInstructor(instructor){
+  await deleteDoc(doc(db, "instructors", instructor.id));
+}
 export {
   getAllLessons,
   getAllInstructors,
   addInstructor, 
   addLesson,
+  deleteLesson,
+  deleteInstructor,
 };

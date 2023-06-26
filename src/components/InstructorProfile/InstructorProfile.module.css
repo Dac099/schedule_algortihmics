@@ -1,35 +1,74 @@
 .instructor_card
 {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin: 1rem 0rem;
   border: 0.2rem solid var(--purple);
   border-radius: 1rem;
-  padding: 1rem 0rem;
+  padding: 1rem 0.5rem;
   background-color: var(--yellow);
   cursor: default;
 }
 
-.instructor_card svg
+.instructor_card__hover
 {
-  font-size: 6rem;
+  display: grid;
+  grid-template-areas: 
+  "picture picture name name"
+  "edit edit edit edit";
+  gap: 0.2rem;
+  margin: 1rem 0rem;
+  border: 0.2rem solid var(--purple);
+  border-radius: 1rem;
+  padding: 1rem 0.5rem;
+  background-color: var(--yellow);
+  cursor: default;
 }
 
-.instructor_card p
+.user_data{
+  grid-area: name;
+}
+
+.user_picture
+{
+  grid-area: picture;
+  font-size: 6rem;
+  min-width: 6rem;
+}
+
+.user_data .instructor_name
 {
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--purple);
+  text-align: right;
 }
 
-.instructor_card .phone
+.user_data .phone
 {
   text-align: right;
-  font-weight: 400;
+  font-weight: bold;
+  color: var(--pink);
+  font-size: 1.3rem;
 }
 
-.instructor_card__hover:hover
+.edit_btn
 {
-  box-shadow: 2px 2px 0px 1px var(--purple);
+  grid-area: edit;
+  display: grid;
+  place-content: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 2rem;
+  justify-self: self-end;
+  color: var(--pink);
+  border-radius: 50%;
+  padding: 1rem;
+}
+
+.edit_btn:hover
+{
+  color: var(--yellow);
+  background-color: var(--purple);
 }

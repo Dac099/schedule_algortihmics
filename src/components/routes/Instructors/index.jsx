@@ -14,7 +14,8 @@ function Instructors(){
     instructors, 
     lessons, 
     isLoading, 
-    onError 
+    onError,
+    setFetchData 
   } = React.useContext(AppContext);
   const [ instructorSelected, setInstructorSelected ] = React.useState('');
   const [instructorLessons, setInstructorLessons] = React.useState([]);
@@ -64,10 +65,13 @@ function Instructors(){
 
         {instructors.map(instructor => (
           <InstructorProfile 
-            instructor_name={instructor.name}
-            instructor_phone={instructor.phone}
             key={instructor.phone}
+            data={instructor}
             action={setInstructorSelected}
+            onEdit={true}
+            setInstructorData={setInstructorData}
+            setShowModal={setShowModal}
+            setModalMode={setModalMode}
           />
         ))}
       </section>
@@ -87,7 +91,7 @@ function Instructors(){
           </button>
         }
 
-        {instructorLessons.map((lesson, index) => (
+        {instructorSelected !== '' && instructorLessons.map((lesson, index) => (
           <table 
             key={index}
             className={styles.container__lesson_card}
@@ -135,7 +139,13 @@ function Instructors(){
         showModal && 
         modalMode === 'instructors' &&
         <InstructorsModal>
-          <InstructorForm setShowModal={setShowModal} data={instructorData}/>
+          <InstructorForm 
+            setShowModal={setShowModal} 
+            data={instructorData} 
+            setFetchData={setFetchData}
+            setInstructorSelected={setInstructorSelected}
+            setInstructorData={setInstructorData}
+          />
         </InstructorsModal>
       }
 
@@ -143,7 +153,14 @@ function Instructors(){
         showModal &&
         modalMode === 'lessons' &&
         <InstructorsModal>
-          <LessonForm setShowModal={setShowModal} data={lessonData} instructor_name={instructorSelected} setData={setLessonData}/>
+          <LessonForm 
+            setShowModal={setShowModal} 
+            data={lessonData} 
+            instructor_name={instructorSelected} 
+            setData={setLessonData}
+            setFetchData={setFetchData}  
+            setInstructorSelected={setInstructorSelected}
+          />
         </InstructorsModal>
       }
 

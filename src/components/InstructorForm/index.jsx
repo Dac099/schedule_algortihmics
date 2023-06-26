@@ -1,30 +1,44 @@
 import React from "react";
-import { addInstructor } from "../../firebase/firestore.js";
+import { addInstructor, deleteInstructor } from "../../firebase/firestore.js";
 import swal from "sweetalert";
 import styles from "./InstructorForm.module.css";
 
-function InstructorForm({data, setShowModal}){
-  const [instructorData, setInstructorData ] = React.useState({
+function InstructorForm({
+  data, 
+  setShowModal, 
+  setFetchData,
+  setInstructorSelected,
+  setInstructorData
+}){
+  const [localData, setLocalData ] = React.useState({
     name: '',
     phone: '',
   });
 
   React.useEffect(() => {
     if(data){
-      setInstructorData(data)
+      setLocalData(data)
     }
   }, []);
 
 
   function handleSubmit(e){
     e.preventDefault();
-    addInstructor(instructorData);
+    addInstructor(localData);
     swal(
       'Instructor agregado correctamente', 
-      `${instructorData.name} agregado`,
+      `${localData.name} agregado`,
       'success'
-    ).then(value => setShowModal(false))
+    ).then(value => {
+      setShowModal(false);
+      setInstructorSelected('');
+      setFetchData(prevState => !prevState);
+    })
 
+  }
+
+  function handleEditInstructor(id){
+    deleteInstructor(id);
   }
 
   return(
@@ -38,11 +52,11 @@ function InstructorForm({data, setShowModal}){
           type="text" 
           name="instructor_name" 
           id="instructor_name"
-          onChange={(e) => setInstructorData({
-            ...instructorData,
+          onChange={(e) => setLocalData({
+            ...localData,
             name: e.target.value
           })}
-          value={instructorData.name}
+          value={localData.name}
         />
       </div>
 
@@ -52,18 +66,21 @@ function InstructorForm({data, setShowModal}){
           type="tel" 
           name="instructor_phone" 
           id="instructor_phone"
-          onChange={(e) => setInstructorData({
-            ...instructorData,
+          onChange={(e) => setLocalData({
+            ...localData,
             phone: e.target.value
           })}
-          value={instructorData.phone}
+          value={localData.phone}
         />
       </div>
 
       <div className={styles.action_btns}>
         <button 
           type="button"
-          onClick={() => setShowModal(false)}
+          onClick={() => {
+            setInstructorData(null);
+            setShowModal(false);
+          }}
           className={styles.cancel_btn}
         >
           Cancelar
