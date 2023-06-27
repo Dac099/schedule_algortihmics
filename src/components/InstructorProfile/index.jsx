@@ -61,19 +61,19 @@ function InstructorProfile({
         }
       </section>
 
-      <div
-        className={styles.edit_btn}
-      >
-        <AiFillEdit
-          onClick={() => {
-            setModalMode('instructors');
-            setInstructorData(data);
-            setShowModal(true);
-          }}
-        />
-      </div>
-       
-
+      {onEdit &&    
+        <div
+          className={styles.edit_btn}
+        >
+          <AiFillEdit
+            onClick={() => {
+              setModalMode('instructors');
+              setInstructorData(data);
+              setShowModal(true);
+            }}
+          />
+        </div>
+      }       
     </article>
   );
 }

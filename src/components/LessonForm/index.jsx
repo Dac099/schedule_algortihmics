@@ -3,6 +3,7 @@ import React from "react";
 import swal from "sweetalert";
 import { MdDelete } from "react-icons/md";
 import { addLesson, deleteLesson } from "../../firebase/firestore";
+import { createHoursArray } from "../../utils/createHoursArray";
 
 function LessonForm({
   setShowModal, 
@@ -38,27 +39,23 @@ function LessonForm({
 
   function handleSubmit(e){
     e.preventDefault();
-    let hours  = [];
-    hours = lessonData.hours.splice(0, 1, startHour);
-    hours = lessonData.hours.splice(lessonData.hours.length - 1, 1, endHour);
+    const schedule  = createHoursArray(startHour, endHour);
 
-    setLessonData({
+    const new_lesson_data = {
       ...lessonData,
-      hours: hours
-    });
+      hours: schedule      
+    };
 
-    addLesson(lessonData);
+    console.log(new_lesson_data);    
+
+    addLesson(new_lesson_data);
     setData(null);
 
     swal(
       'Clase agregada correctamente',
       '',
       'success'
-    ).then(value => {
-      setShowModal(false);
-      setInstructorSelected('');
-      setFetchData(prevState => !prevState);
-    })
+    ).then(value => clearData());
   }
 
   function handleDelete(lesson_id){
@@ -67,12 +64,14 @@ function LessonForm({
       'Lección eliminada',
       '',
       'success'
-    ).then(data => {
-      setShowModal(false);
-      setData(null);
-      setInstructorSelected('');
-      setFetchData(prevState => !prevState);
-    });
+    ).then(data => clearData());
+  }
+
+  function clearData(){
+    setShowModal(false);
+    setData(null);
+    setInstructorSelected('');
+    setFetchData(prevState => !prevState);
   }
 
   return (

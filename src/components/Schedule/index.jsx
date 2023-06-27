@@ -5,41 +5,25 @@ import { DayWeek } from "../DayWeek";
 import { getMonth } from "../../utils/transformDates";
 import { InstructorProfile } from '../InstructorProfile';
 import { LessonsContext } from '../../Context/Lessons';
+import { AppContext } from "../../Context/AppData";
 import { LessonsModal } from "../LessonsModal/index"
 import { Loading } from '../../Loading';
 import { Error } from '../Error';
-import { 
-  getAllLessons,
-  getAllInstructors, 
-} from "../../firebase/firestore";
 
 function Schedule(){
   const month = new Date().getMonth();
   const year = new Date().getFullYear();  
   const days = Object.values(getDaysByMonth(month + 1, year));
-  const [lessons, setLessons] = useState();
-  const [instructors, setInstructors] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [onError, setOnError] = useState(false);
   const [firstDayMonthReference, setFirstDayMonthReference] = useState(0);
-  const {showModal, setShowModal} = useContext(LessonsContext);
+  const {showModal} = useContext(LessonsContext);
+  const {
+    lessons,
+    instructors,
+    isLoading,
+    onError
+  } = useContext(AppContext);
 
   useEffect(() => {
-    const fetchAllLessons = async () => {
-      try {
-        setLessons(await getAllLessons());
-        setInstructors(await getAllInstructors());
-
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setOnError(true);
-        console.log(error)
-      }
-    }
-
-    fetchAllLessons();
-
     /**
      * Se recorre el arreglo de los dias para poder saber en que dia de la semana
      * empieza el mes y asi desplegar las tarjetas de dias en orden
@@ -81,8 +65,9 @@ function Schedule(){
         <section className={styles.instructors_container}>
           {instructors.map(instructor => (
             <InstructorProfile 
-              instructor_name={instructor.name}
               key={instructor.name}
+              data={instructor}
+              onEdit={false}
             />
           ))}
         </section>
