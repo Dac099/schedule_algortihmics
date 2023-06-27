@@ -26,6 +26,11 @@
   cursor: default;
 }
 
+.instructor_card__hover:hover
+{
+  box-shadow: 1px 1px 0px 1px var(--purple);
+}
+
 .user_data{
   grid-area: name;
 }

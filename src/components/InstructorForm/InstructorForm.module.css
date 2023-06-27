@@ -51,6 +51,15 @@
   gap: 1rem;
 }
 
+.form .action_btns__delete
+{
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .submit_btn
 {
   border-radius: 0.8rem;
@@ -84,6 +93,24 @@
 }
 
 .cancel_btn:hover
+{
+  background-color: var(--pink);
+  color: #fff;
+}
+
+.action_btns__delete .delete_btn
+{
+  font-size: 3rem;
+  width: 4rem;
+  height: 4rem;
+  display: grid;
+  place-items: center;
+  color: var(--pink);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.action_btns__delete .delete_btn:hover
 {
   background-color: var(--pink);
   color: #fff;

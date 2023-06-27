@@ -1,7 +1,13 @@
 import React from "react";
-import { addInstructor, deleteInstructor } from "../../firebase/firestore.js";
+import { 
+  addInstructor, 
+  deleteInstructor,
+  updateInstructor 
+} from "../../firebase/firestore.js";
 import swal from "sweetalert";
 import styles from "./InstructorForm.module.css";
+import { MdDelete } from "react-icons/md";
+
 
 function InstructorForm({
   data, 
@@ -17,28 +23,50 @@ function InstructorForm({
 
   React.useEffect(() => {
     if(data){
-      setLocalData(data)
+      setLocalData({
+        name: data.name,
+        phone: data.phone
+      })
     }
   }, []);
 
 
   function handleSubmit(e){
     e.preventDefault();
-    addInstructor(localData);
-    swal(
-      'Instructor agregado correctamente', 
-      `${localData.name} agregado`,
-      'success'
-    ).then(value => {
-      setShowModal(false);
-      setInstructorSelected('');
-      setFetchData(prevState => !prevState);
-    })
+
+    if(data){
+      updateInstructor(data.id, localData);
+      swal(
+        'Instructor actualizado correctamente',
+        `${localData.name} ha sido acutalizado`,
+        'success'
+      ).then(value => cleanDataAndReload());
+    }else{
+      addInstructor(localData);
+      swal(
+        'Instructor agregado correctamente', 
+        `${localData.name} agregado`,
+        'success'
+      ).then(value => cleanDataAndReload())
+    }
+
 
   }
 
-  function handleEditInstructor(id){
+  function handleDeleteInstructor(id){
     deleteInstructor(id);
+    swal(
+      'Instructor eliminado correctamente',
+      `${localData.name} ha sido eliminado. Sus clases siguen activas`,
+      'success'
+    ).then(value => cleanDataAndReload());
+  }
+
+  function cleanDataAndReload(){
+    setShowModal(false);
+    setInstructorData(null);
+    setInstructorSelected('');
+    setFetchData(prevState => !prevState);
   }
 
   return(
@@ -74,7 +102,22 @@ function InstructorForm({
         />
       </div>
 
-      <div className={styles.action_btns}>
+      <div className={
+        !data 
+          ?styles.action_btns
+          :styles.action_btns__delete
+      }>
+
+        {data &&
+          <div
+            className={styles.delete_btn}
+            onClick={() => handleDeleteInstructor(data.id)}
+          >
+            <MdDelete />
+          </div>
+        }
+
+
         <button 
           type="button"
           onClick={() => {
@@ -90,7 +133,7 @@ function InstructorForm({
           type="submit"
           className={styles.submit_btn}
         >
-          Agregar profesor
+          {data ? 'Actualizar' : 'Agregar'}
         </button>      
       </div>
 

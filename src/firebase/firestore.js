@@ -98,9 +98,15 @@ async function deleteLesson(lesson_id){
   await deleteDoc(doc(db, 'lessons', lesson_id));
 }
 
-async function deleteInstructor(instructor){
-  await deleteDoc(doc(db, "instructors", instructor.id));
+async function deleteInstructor(id){
+  //todo: Buscar las clases asociadas al maestro y cambiar el campo instructor a una cadena vacia
+  await deleteDoc(doc(db, "instructors", id));
 }
+
+async function updateInstructor(id, newData){
+  await setDoc(doc(db, 'instructors', id), newData);
+}
+
 export {
   getAllLessons,
   getAllInstructors,
@@ -108,4 +114,5 @@ export {
   addLesson,
   deleteLesson,
   deleteInstructor,
+  updateInstructor,
 };
