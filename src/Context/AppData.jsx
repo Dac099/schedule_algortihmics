@@ -8,6 +8,7 @@ function AppContextProvider({children}){
   const [ isLoading, setIsLoading ] = React.useState(true);
   const [ onError, setOnError ] = React.useState(false);
   const [fetchData, setFetchData ] = React.useState(false);
+  let lessonsWithoutInstructor = [];
 
   React.useEffect(() => {
     async function fetchAppData(){
@@ -29,6 +30,7 @@ function AppContextProvider({children}){
     setOnError(false);
     
     fetchAppData();
+    lessonsWithoutInstructor = [...lessons.filter(lessons => lessons.instructor === '')];
 
   }, [fetchData]);
 
@@ -42,7 +44,8 @@ function AppContextProvider({children}){
         isLoading, 
         onError,
         fetchData,
-        setFetchData
+        setFetchData,
+        lessonsWithoutInstructor
       }}
     >
       {children}

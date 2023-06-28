@@ -4,10 +4,10 @@ import { AppContext } from "../../../Context/AppData";
 import { Loading } from "../../../Loading";
 import { Error } from "../../Error";
 import { InstructorProfile } from "../../InstructorProfile";
-import { AiFillEdit } from "react-icons/ai";
 import { InstructorsModal } from "../../InstructorsModal";
 import { InstructorForm } from "../../InstructorForm";
 import { LessonForm } from "../../LessonForm";
+import { LessonTable } from "../../LessonTable";
 
 function Instructors(){
   const { 
@@ -15,7 +15,7 @@ function Instructors(){
     lessons, 
     isLoading, 
     onError,
-    setFetchData 
+    setFetchData,
   } = React.useContext(AppContext);
   const [ instructorSelected, setInstructorSelected ] = React.useState('');
   const [instructorLessons, setInstructorLessons] = React.useState([]);
@@ -23,7 +23,7 @@ function Instructors(){
   const [ instructorData, setInstructorData ] = React.useState(null);
   const [ lessonData, setLessonData ] = React.useState(null);
   const [ modalMode, setModalMode ] = React.useState(null);
- 
+  let lessonsWithoutInstructor = [...lessons.filter(lessons => lessons.instructor === '')];
 
 
   React.useEffect(() => {
@@ -47,6 +47,7 @@ function Instructors(){
     return <Error msg="Obtuvimos un problema al cargar los datos."/>
   }
 
+
   return (
     <article className={styles.container}>
 
@@ -63,6 +64,16 @@ function Instructors(){
           Agregar maestro
         </button>
 
+        <button 
+          type="button"
+          className={`${styles.add_instructor__btn} ${styles.no_intructor__btn}`}
+          onClick={() => {
+            setInstructorSelected('')
+          }}
+        >
+          Clases sin maestro
+        </button>
+
         {instructors.map(instructor => (
           <InstructorProfile 
             key={instructor.phone}
@@ -76,7 +87,11 @@ function Instructors(){
         ))}
       </section>
 
-      <section className={styles.container__lessons}>
+      <section className={
+          instructorSelected === ''
+          ? styles.container__lessons_no_intructor
+          : styles.container__lessons
+        }>
 
         {instructorSelected !== '' &&
           <button 
@@ -91,47 +106,33 @@ function Instructors(){
           </button>
         }
 
+        {instructorSelected === '' &&
+          <>
+            <p className={styles.title}>Clases sin instructor asignado</p>
+            <article
+              className={styles.lessons}
+            >
+              {lessonsWithoutInstructor.map((lesson, index) => (
+                <LessonTable 
+                lesson={lesson}
+                key={index}
+                setLessonData={setLessonData}
+                setModalMode={setModalMode}
+                setShowModal={setShowModal}
+              />
+              ))}
+            </article>
+          </>          
+        }
+
         {instructorSelected !== '' && instructorLessons.map((lesson, index) => (
-          <table 
+          <LessonTable 
+            lesson={lesson}
             key={index}
-            className={styles.container__lesson_card}
-          >
-            <tbody>
-              <tr>
-                <td>Clase</td>
-                <td>{lesson.lesson_name}</td>
-              </tr>
-
-              <tr>
-                <td>Horario</td>
-                <td>{`${lesson.hours[0]} : ${lesson.hours[lesson.hours.length - 1]}`}</td>
-              </tr>
-
-              <tr>
-                <td>Día</td>
-                <td>{lesson.day}</td>
-              </tr>
-
-              <tr>
-                <td 
-                  colSpan={2}
-                  style={{
-                    backgroundColor: "#FFD749",
-                    border: "none",
-                  }}
-                >
-                <AiFillEdit 
-                  className={styles.edit_btn}
-                  onClick={() => {
-                    setLessonData(lesson);
-                    setModalMode('lessons');
-                    setShowModal(true);                    
-                  }}
-                />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            setLessonData={setLessonData}
+            setModalMode={setModalMode}
+            setShowModal={setShowModal}
+          />
         ))}
       </section>
       
