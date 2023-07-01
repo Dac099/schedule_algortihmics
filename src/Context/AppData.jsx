@@ -1,14 +1,14 @@
 import React from "react";
 const AppContext = React.createContext();
-import { getAllInstructors, getAllLessons } from "../firebase/firestore";
+import { getAllInstructors, getAllLessons, getTrialLessons } from "../firebase/firestore";
 
 function AppContextProvider({children}){
   const [ instructors, setInstructors ] = React.useState([]);
   const [ lessons, setLessons ] = React.useState([]);
   const [ isLoading, setIsLoading ] = React.useState(true);
   const [ onError, setOnError ] = React.useState(false);
-  const [fetchData, setFetchData ] = React.useState(false);
-  let lessonsWithoutInstructor = [];
+  const [ fetchData, setFetchData ] = React.useState(false);
+  const [ trialLessons, setTrialLessons ] = React.useState([]);
 
   React.useEffect(() => {
     async function fetchAppData(){
@@ -16,6 +16,7 @@ function AppContextProvider({children}){
 
         setInstructors(await getAllInstructors());        
         setLessons(await getAllLessons());
+        setTrialLessons(await getTrialLessons());
         setIsLoading(false);
 
       } catch (error) {
@@ -30,7 +31,6 @@ function AppContextProvider({children}){
     setOnError(false);
     
     fetchAppData();
-    lessonsWithoutInstructor = [...lessons.filter(lessons => lessons.instructor === '')];
 
   }, [fetchData]);
 
@@ -45,7 +45,7 @@ function AppContextProvider({children}){
         onError,
         fetchData,
         setFetchData,
-        lessonsWithoutInstructor
+        trialLessons
       }}
     >
       {children}

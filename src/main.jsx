@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 import { App } from './components/routes/App'
 import { Instructors } from './components/routes/Instructors'
+import { Lessons } from "./components/routes/Lessons";
 import { LessonsProvider } from './Context/Lessons';
 import { AppContextProvider } from './Context/AppData';
 
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "clases",
-        element: <Instructors />
+        element: <Lessons />
       },
       {
         path: "instructores",

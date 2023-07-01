@@ -5,6 +5,7 @@
   padding: 0.2rem;
   border-spacing: 0.1rem;
   background-color: var(--yellow);
+  box-shadow: 1px 1px 0px 1px var(--purple);
 }
 
 .container__lesson_card td

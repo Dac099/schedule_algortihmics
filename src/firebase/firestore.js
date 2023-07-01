@@ -107,6 +107,26 @@ async function updateInstructor(id, newData){
   await setDoc(doc(db, 'instructors', id), newData);
 }
 
+async function getTrialLessons(){
+  try {
+    const queryDB = query(collection(db, 'trial_lessons'));
+    const querySnapshots = await getDocs(queryDB);
+
+    const lessons = querySnapshots.docs.map(doc => {
+      const trial_lesson = {
+        ...doc.data(),
+        id: doc.id
+      }
+
+      return trial_lesson;
+    });
+
+    return lessons;    
+  } catch (error) {
+    return error;
+  }
+}
+
 export {
   getAllLessons,
   getAllInstructors,
@@ -115,4 +135,5 @@ export {
   deleteLesson,
   deleteInstructor,
   updateInstructor,
+  getTrialLessons,
 };
