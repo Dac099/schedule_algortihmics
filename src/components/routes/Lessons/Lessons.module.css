@@ -1,0 +1,9 @@
+.lessons_container
+{
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 1rem 1rem;
+  gap: 1rem;
+}
+
