@@ -13,6 +13,8 @@ function TrialLessonModal({lessonSelected}){
   const [ lessonUpdate, setLessonUpdate ] = React.useState(lessonSelected);
   const [ childrenAmount, setChildrenAmount ] = React.useState(lessonSelected.children.length);
   const [ childrenName, setChildrenName ] = React.useState([]);
+  const [ startHour, setStartHour ] = React.useState(lessonSelected.date.hours[0]);
+  const [ endHour, setEndHour ] = React.useState(lessonSelected.date.hours[lessonSelected.date.hours.length - 1]);
 
   React.useEffect(() => {
     const inputs = [];
@@ -26,14 +28,22 @@ function TrialLessonModal({lessonSelected}){
       inputs[i] = lessonUpdate.children[i];
     }
   
-    console.log(inputs)
     setChildrenName(inputs);
   }, [childrenAmount]);
 
 
+  function handleSubmit(e){
+    e.preventDefault();
+
+
+  }
+
   return (
     <article className={styles.trial_modal}>
-      <form className={styles.form_uptade}>
+      <form 
+        className={styles.form_uptade}
+        onSubmit={e => handleSubmit(e)}
+      >
         <div>
           <label htmlFor="lesson_name">Lección</label>
           <input 
@@ -41,6 +51,12 @@ function TrialLessonModal({lessonSelected}){
             name="lesson_name" 
             id="lesson_name" 
             value={lessonUpdate.lesson}
+            onChange={e => {
+              setLessonUpdate({
+                ...lessonUpdate,
+                lesson : e.target.value
+              });
+            }}
           />
         </div>
 
@@ -51,6 +67,15 @@ function TrialLessonModal({lessonSelected}){
             name="date" 
             id="date" 
             value={secondsToDate(lessonUpdate.date.day.seconds)}
+            onChange={e => {
+              setLessonUpdate({
+                ...lessonUpdate,
+                date : {
+                  ...lessonUpdate.date,
+                  day: e.target.value
+                }
+              })
+            }}
           />
         </div>
 
@@ -62,10 +87,8 @@ function TrialLessonModal({lessonSelected}){
               <select 
                 name="hours" 
                 id="hours"
-                onChange={(e) => {
-                  console.log(e.target.value);
-                }}
-                value={lessonUpdate.date.hours[0]} 
+                onChange={(e) => setStartHour(e.target.value)}
+                value={startHour} 
               >
                 {avilableHours.map(hour => (
                   <option 
@@ -82,10 +105,8 @@ function TrialLessonModal({lessonSelected}){
               <select 
                 name="end" 
                 id="end"
-                onChange={(e) => {
-                  console.log(e.target.value);
-                }}
-                value={lessonUpdate.date.hours.slice(-1)}
+                onChange={(e) => setEndHour(e.target.value)}
+                value={endHour}
               >
                 {avilableHours.map(hour => (
                   <option 
@@ -102,22 +123,34 @@ function TrialLessonModal({lessonSelected}){
         </div>
 
         <div>
-          <label htmlFor="onplace">Presencial</label>
+          <label htmlFor="onplace">En línea</label>
           <input 
             type="radio" 
             name="mode" 
             id="onplace" 
             value={"online"} 
-            checked={!lessonUpdate.isOnline}
+            checked={lessonUpdate.modality === 'online'}
+            onChange={e => {
+              setLessonUpdate({
+                ...lessonUpdate,
+                modality: e.target.value
+              })
+            }}
           />
 
-          <label htmlFor="onlice">En línea</label>
+          <label htmlFor="onlice">Presencial</label>
           <input 
             type="radio" 
             name="mode" 
             id="online" 
-            value={"onplace"} 
-            checked={lessonUpdate.isOnline}
+            value={"presencial"} 
+            checked={lessonUpdate.modality === 'presencial'}
+            onChange={e => {
+              setLessonUpdate({
+                ...lessonUpdate,
+                modality: e.target.value
+              })
+            }}
           />
         </div>
 
@@ -128,6 +161,12 @@ function TrialLessonModal({lessonSelected}){
             name="tutor" 
             id="tutor" 
             value={lessonUpdate.parent_name}
+            onChange={e => {
+              setLessonUpdate({
+                ...lessonUpdate,
+                parent_name: e.target.value
+              })
+            }}
           />
         </div>
 
@@ -138,6 +177,12 @@ function TrialLessonModal({lessonSelected}){
             name="phone" 
             id="phone" 
             value={lessonUpdate.parent_phone}
+            onChange={e => {
+              setLessonUpdate({
+                ...lessonUpdate,
+                parent_phone: e.target.value
+              })
+            }}
           />
         </div>
 
@@ -154,9 +199,16 @@ function TrialLessonModal({lessonSelected}){
 
         <div>
           {childrenName.map((childName, index) => (
-            <input type="text" value={childName} key={index}/>
+            <input 
+              type="text" 
+              value={childName} 
+              key={index}
+              
+            />
           ))}
         </div>
+
+        <button type="submit">Actualizar</button>
 
       </form>
     </article>

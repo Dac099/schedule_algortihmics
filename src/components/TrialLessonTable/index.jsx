@@ -5,7 +5,6 @@ import styles from "./TrialLessonTable.module.css";
 
 function TrialLessonTable({lesson, setData, setShowModal}){
   const date = new Date(lesson.date.day.seconds * 1000).toLocaleDateString();
-  console.log(lesson.date);
   const hours_lenght = lesson.date.hours.length;
   const begin_hour = lesson.date.hours[0];
   const end_hour = lesson.date.hours[hours_lenght - 1];
@@ -35,7 +34,7 @@ function TrialLessonTable({lesson, setData, setShowModal}){
         </tr>
         <tr>
           <td>Modo</td>
-          <td colSpan={2}>{lesson.isOnline ? "Línea" : "Presencial"}</td>
+          <td colSpan={2}>{lesson.modality === 'online' ? "Línea" : 'Presencial'}</td>
         </tr>
         <tr>
           <td>Tutor</td>
