@@ -1,9 +1,9 @@
 //Date example: "Viernes, 21 de Julio"
 
-function transformStringDate(string_date){
-
-  const day = fecha.split(' ')[1];
-  const month_string = fecha.split(' ')[3];
+function transformStringDate(date){
+  const day = date.split(' ')[1];
+  let month_string = date.split(' ')[3];
+  month_string = month_string[0].toUpperCase() + month_string.slice(1);
   const year = new Date().getFullYear();
 
   const months = {

@@ -99,7 +99,6 @@ async function deleteLesson(lesson_id){
 }
 
 async function deleteInstructor(id){
-  //todo: Buscar las clases asociadas al maestro y cambiar el campo instructor a una cadena vacia
   await deleteDoc(doc(db, "instructors", id));
 }
 
@@ -127,6 +126,26 @@ async function getTrialLessons(){
   }
 }
 
+async function updateTrialLesson(lesson){
+  try {
+    const id = lesson.id;
+    delete lesson.id;
+    
+    await setDoc(doc(db, 'trial_lessons', id), lesson);
+    
+  } catch (error) {
+    console.log(new Error(error).message);
+  }
+}
+
+async function deleteTrialLesson(lesson){
+  try {
+    await deleteDoc(doc(db, "trial_lessons", lesson.id));
+  } catch (error) {
+    console.log(new Error(error).message);
+  }
+}
+
 export {
   getAllLessons,
   getAllInstructors,
@@ -136,4 +155,6 @@ export {
   deleteInstructor,
   updateInstructor,
   getTrialLessons,
+  updateTrialLesson,
+  deleteTrialLesson,
 };

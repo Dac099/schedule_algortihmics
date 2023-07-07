@@ -22,6 +22,5 @@ export function createHoursArray(begin_hour, end_hour){
       horario.push(horas_disponibles[i]);
   }
 
-  console.log('Horario: ', horario);
   return horario;
 }

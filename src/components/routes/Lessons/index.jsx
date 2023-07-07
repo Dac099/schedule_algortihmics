@@ -21,7 +21,7 @@ function Lessons(){
       ))}
 
       {showModal &&
-        <TrialLessonModal lessonSelected={lessonSelected}/>
+        <TrialLessonModal lessonSelected={lessonSelected} setShowModal={setShowModal}/>
       }
 
     </article>

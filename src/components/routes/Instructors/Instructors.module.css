@@ -19,11 +19,11 @@
 .container__lessons
 {
   display: grid;
-  grid-template-columns: repeat(6, minmax(10rem, 20rem));
+  grid-template-columns: repeat(5, minmax(10rem, 18rem));
   justify-content: center;
   grid-auto-rows: 150px;
   gap: 1rem;
-  padding-right: 1rem;
+  /* padding-right: 1rem; */
 }
 
 .container__lessons_no_intructor

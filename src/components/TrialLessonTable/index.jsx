@@ -1,13 +1,17 @@
+import React from "react";
+import styles from "./TrialLessonTable.module.css";
+import swal from "sweetalert";
 import { MdDelete } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
-import styles from "./TrialLessonTable.module.css";
+import { AppContext } from "../../Context/AppData"
+import { deleteTrialLesson } from "../../firebase/firestore";
 
 
 function TrialLessonTable({lesson, setData, setShowModal}){
-  const date = new Date(lesson.date.day.seconds * 1000).toLocaleDateString();
-  const hours_lenght = lesson.date.hours.length;
-  const begin_hour = lesson.date.hours[0];
-  const end_hour = lesson.date.hours[hours_lenght - 1];
+  const hours_lenght = lesson.hours.length;
+  const begin_hour = lesson.hours[0];
+  const end_hour = lesson.hours[hours_lenght - 1];
+  const { setFetchData } = React.useContext(AppContext);
 
   return (
     <table className={styles.lesson_card}>
@@ -22,11 +26,23 @@ function TrialLessonTable({lesson, setData, setShowModal}){
             <AiFillEdit />
           </td>
           <td>{lesson.lesson}</td>
-          <td><MdDelete /></td>
+          <td
+            onClick={() => {
+              deleteTrialLesson(lesson);
+              setFetchData(prevState => !prevState);
+              swal({
+                title: 'Lección eliminada',
+                text: `La lección de ${lesson.parent_name} se a eliminado`,
+                icon: 'success'
+              });
+            }}
+          >
+            <MdDelete />
+          </td>
         </tr>
         <tr>
           <td>Fecha</td>
-          <td colSpan={2}>{date}</td>
+          <td colSpan={2}>{lesson.date}</td>
         </tr>
         <tr>
           <td>Horario</td>
@@ -47,17 +63,15 @@ function TrialLessonTable({lesson, setData, setShowModal}){
         <tr className={styles.children_row}>
           <td colSpan="3">Niños</td>
         </tr>
-        <tr>
-          {lesson.children.map(child => (
-            <td 
-              key={child}
-              colSpan={3}
-              className={styles.child_row}
-            >
-              {child}
-            </td>
-          ))}      
-        </tr>    
+        {lesson.children.map(child => (
+              <tr 
+                key={child}
+                
+                className={styles.child_row}
+              >
+                <td colSpan={3}>{child}</td>
+              </tr>
+        ))}      
       </tbody>  
     </table>
   );

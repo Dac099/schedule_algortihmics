@@ -5,7 +5,134 @@
   left: 0;
   display: grid;
   place-content: center;
-  background-color: rgba(0,0,0, 0.1);
+  background-color: rgba(255, 215, 73, 0.1);
   width: 100vw;
   height: 100vh;
+}
+
+.form_uptade
+{
+  background-color: var(--purple);
+  padding: 1rem;
+  border-radius: 0.8rem;
+  color: #fff;
+  min-width: 40rem;
+  border: 3px solid var(--yellow);
+}
+
+.form_uptade div
+{
+  display: grid;
+  grid-template-rows: 1fr min-content;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.form_uptade label
+{
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+input[type="text"], 
+input[type="number"],
+input[type="date"]
+{
+  height: 4rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--yellow);
+  outline-color: var(--pink);
+  text-align: center;
+  font-size: 1.6rem;
+  background-color: var(--yellow);
+  color: var(--purple);
+  cursor: pointer;
+}
+
+.form_uptade .schedule_container
+{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.schedule_container select
+{
+  height: 4rem;
+  width: 10rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  background-color: var(--yellow);
+  outline-color: var(--pink);
+  cursor: pointer;
+}
+
+.form_uptade .modality
+{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.form_uptade .modality div
+{
+  justify-items: center;
+}
+
+input[type="radio"]
+{
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid var(--yellow);
+  background-color: transparent;
+}
+
+input[type="radio"]:checked {
+  background-color: var(--pink);
+}
+
+.btns
+{
+  grid-template-columns: 1fr 1fr;
+}
+
+button
+{
+  height: 4rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  outline: none;
+  border: 2px solid;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+button.cancel_btn
+{
+  border-color: var(--pink);
+  background-color: var(--purple);
+  color: var(--pink);
+}
+
+button.cancel_btn:hover
+{
+  transform: scaleX(0.9);
+  background-color: var(--pink);
+  color: #fff;
+}
+
+button.submit_btn
+{
+  border-color: var(--yellow);
+  background-color: var(--pink);
+  color: #fff;
+}
+
+button.submit_btn:hover
+{
+  box-shadow: 1px 1px 0px 1px var(--yellow);
+  transform: scaleX(0.9);
 }

@@ -1,5 +1,11 @@
 import React from "react";
+import swal from "sweetalert";
 import styles from "./TrialLessonModal.module.css";
+import { transformStringDate }  from "../../utils/transformStringDate";
+import { transformDateToString } from "../../utils/transformDateToString";
+import { createHoursArray } from "../../utils/createHoursArray";
+import { updateTrialLesson } from "../../firebase/firestore";
+import { AppContext } from "../../Context/AppData";
 
 
 const avilableHours = [
@@ -9,33 +15,44 @@ const avilableHours = [
   '21:00'
 ];
 
-function TrialLessonModal({lessonSelected}){
+function TrialLessonModal({lessonSelected, setShowModal}){
   const [ lessonUpdate, setLessonUpdate ] = React.useState(lessonSelected);
   const [ childrenAmount, setChildrenAmount ] = React.useState(lessonSelected.children.length);
-  const [ childrenName, setChildrenName ] = React.useState([]);
-  const [ startHour, setStartHour ] = React.useState(lessonSelected.date.hours[0]);
-  const [ endHour, setEndHour ] = React.useState(lessonSelected.date.hours[lessonSelected.date.hours.length - 1]);
+  const [ childrenInputs, setChildrenInputs ] = React.useState([]);
+  const [ startHour, setStartHour ] = React.useState(lessonSelected.hours[0]);
+  const [ endHour, setEndHour ] = React.useState(lessonSelected.hours[lessonSelected.hours.length - 1]);
+  const { setFetchData } = React.useContext(AppContext);
 
   React.useEffect(() => {
     const inputs = [];
-    //Llenar el arreglo con los el total de inputs, marcados por childrenAmount
-    //por cada niño registrado en lesson, cambiar el atributo value de los inputs
-    for(let i = 0; i < childrenAmount; i++){
-      inputs.push("");
-    }
 
-    for(let i = 0; i < lessonUpdate.children.length; i++){
-      inputs[i] = lessonUpdate.children[i];
+    for(let i = 0; i < childrenAmount; i++){
+      inputs[i] = lessonUpdate.children[i] || "";
     }
   
-    setChildrenName(inputs);
+    setChildrenInputs(inputs);
   }, [childrenAmount]);
 
 
   function handleSubmit(e){
     e.preventDefault();
-
-
+    const objectUpdated = {
+      ...lessonUpdate,
+      children: childrenInputs,
+      hours: createHoursArray(startHour, endHour),      
+    }
+    
+    updateTrialLesson(objectUpdated);
+    
+    swal({
+      title: 'Clase muestra actualizada',
+      text: `La lección de ${objectUpdated.parent_name} ha cambiado`,
+      icon: 'success'
+    }).then(value => {
+      setShowModal(false);
+      setFetchData(prevState => !prevState);      
+    });
+    
   }
 
   return (
@@ -66,14 +83,11 @@ function TrialLessonModal({lessonSelected}){
             type="date" 
             name="date" 
             id="date" 
-            value={secondsToDate(lessonUpdate.date.day.seconds)}
+            value={transformStringDate(lessonUpdate.date).date_for_input}
             onChange={e => {
               setLessonUpdate({
                 ...lessonUpdate,
-                date : {
-                  ...lessonUpdate.date,
-                  day: e.target.value
-                }
+                date : transformDateToString(e.target.value)
               })
             }}
           />
@@ -81,7 +95,7 @@ function TrialLessonModal({lessonSelected}){
 
         <div>
           <label htmlFor="hours">Horario</label>
-          <div>
+          <div className={styles.schedule_container}>
              
             <div>
               <select 
@@ -122,36 +136,40 @@ function TrialLessonModal({lessonSelected}){
           </div>
         </div>
 
-        <div>
-          <label htmlFor="onplace">En línea</label>
-          <input 
-            type="radio" 
-            name="mode" 
-            id="onplace" 
-            value={"online"} 
-            checked={lessonUpdate.modality === 'online'}
-            onChange={e => {
-              setLessonUpdate({
-                ...lessonUpdate,
-                modality: e.target.value
-              })
-            }}
-          />
-
-          <label htmlFor="onlice">Presencial</label>
-          <input 
-            type="radio" 
-            name="mode" 
-            id="online" 
-            value={"presencial"} 
-            checked={lessonUpdate.modality === 'presencial'}
-            onChange={e => {
-              setLessonUpdate({
-                ...lessonUpdate,
-                modality: e.target.value
-              })
-            }}
-          />
+        <div className={styles.modality}>
+          <div>
+            <label htmlFor="onplace">En línea</label>
+            <input 
+              type="radio" 
+              name="mode" 
+              id="onplace" 
+              value={"online"} 
+              checked={lessonUpdate.modality.toLowerCase() === 'online'}
+              onChange={e => {
+                setLessonUpdate({
+                  ...lessonUpdate,
+                  modality: e.target.value
+                })
+              }}
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="onlice">Presencial</label>
+            <input 
+              type="radio" 
+              name="mode" 
+              id="online" 
+              value={"presencial"} 
+              checked={lessonUpdate.modality.toLowerCase() === 'presencial'}
+              onChange={e => {
+                setLessonUpdate({
+                  ...lessonUpdate,
+                  modality: e.target.value
+                })
+              }}
+            />
+          </div>
         </div>
 
         <div>
@@ -198,25 +216,39 @@ function TrialLessonModal({lessonSelected}){
         </div>
 
         <div>
-          {childrenName.map((childName, index) => (
+          {childrenInputs.map((childName, index) => (
             <input 
               type="text" 
               value={childName} 
               key={index}
-              
+              onChange={e => {
+                const inputs = [...childrenInputs];
+                inputs[index] = e.target.value;
+                setChildrenInputs(inputs);
+              }}
             />
           ))}
         </div>
 
-        <button type="submit">Actualizar</button>
+        <div className={styles.btns}>
+          <button 
+            onClick={() => setShowModal(false)}
+            className={styles.cancel_btn}
+          >
+            Cancelar
+          </button>
+
+          <button 
+            type="submit"
+            className={styles.submit_btn}
+          >
+            Actualizar
+          </button>
+        </div>
 
       </form>
     </article>
   );
-}
-
-function secondsToDate(seconds){
-  return new Date(seconds * 1000).toISOString().split('T')[0];
 }
 
 export {TrialLessonModal};
