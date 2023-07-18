@@ -1,19 +1,37 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const twilio = require('twilio');
+const phone = require('phone');
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+admin.initializeApp();
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+const accountSid = 'AC669229b2f4c305758454aefd57593014';
+const authToken = '5856a9818d8694726dac0d5cf185e060';
+const client = twilio(accountSid, authToken);
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+exports.sendWhatsAppOnDocumentCreate = functions.firestore
+  .document('trial_lessons/{lessonId}')
+  .onCreate(async (snapshot, context) => {
+    const newDocumentData = snapshot.data();
+    const phoneNumber = newDocumentData.parent_phone;
+    const phoneFormat164 = phone.phone(phoneNumber, {
+      country: "MEX"
+    }).phoneNumber;
+
+    const message = {
+      body: 'Tu clase muestra a quedado agendada',
+      from: 'whatsapp:+14155238886',
+      to: `whatsapp:${phoneFormat164}`
+    };
+
+    return client.messages.create(message)
+      .then(() => {
+        console.log('Mensaje de WhatsApp enviado con éxito.');
+        return null;
+      })
+      .catch((error) => {
+        console.error('Error al enviar el mensaje de WhatsApp:', error);
+        console.error(phoneFormat164);
+        return null;
+      });
+  });

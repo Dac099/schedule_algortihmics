@@ -10,6 +10,7 @@ import { Instructors } from './components/routes/Instructors'
 import { Lessons } from "./components/routes/Lessons";
 import { LessonsProvider } from './Context/Lessons';
 import { AppContextProvider } from './Context/AppData';
+import { SignInUser } from './components/routes/SignIn'
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         element: <Instructors />
       }
     ],
+  },
+  {
+    path: "/signin",
+    element: <SignInUser />
   }
 ]);
 
