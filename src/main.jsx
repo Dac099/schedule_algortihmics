@@ -11,6 +11,8 @@ import { Lessons } from "./components/routes/Lessons";
 import { LessonsProvider } from './Context/Lessons';
 import { AppContextProvider } from './Context/AppData';
 import { SignInUser } from './components/routes/SignIn'
+import { DaysOff } from './components/routes/DaysOff'
+import { Images } from './components/routes/Images'
 
 const router = createBrowserRouter([
   {
@@ -24,13 +26,21 @@ const router = createBrowserRouter([
       {
         path: "instructores",
         element: <Instructors />
+      },
+      {
+        path: "daysoff",
+        element: <DaysOff />
+      },
+      {
+        path: "images",
+        element: <Images />
       }
     ],
   },
   {
     path: "/signin",
     element: <SignInUser />
-  }
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

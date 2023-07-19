@@ -1,33 +1,40 @@
 import React from "react";
 import styles from "./signin.module.css";
 import { auth } from "../../../firebase/firebase_sdk";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function SignInUser(){
   const navigate = useNavigate();
   const [ password, setPassword ] = React.useState("");
   const [ email, setEmail ] = React.useState("");
+  const [ onError, setOnError ] = React.useState(false);
 
-  async function handleSubmit(e){
-    try {    
-      e.preventDefault();
-  
-      const res = await signInWithEmailAndPassword(auth, email, password);
-      if(res !== Error){
+  React.useEffect(() => {
+    onAuthStateChanged(auth, user => {
+      if(user){
         navigate("/");
       }
-  
+    });
+  }, []);
+
+  function handleSubmit(e){
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+    .then(res => {
+      navigate("/");
       setPassword('')
       setEmail('');
-    } catch (error) {
-      alert("Correo o contraseña incorrecta");
-    }
+    })
+    .catch(error => {
+      setOnError(true);
+    })
   }
 
 
   return (
-    <article>
+    <article className={styles.container}>
+      {onError && <p className={styles.text_error}>Correo o contraseña incorrectos</p>}
       <form
         onSubmit={e => handleSubmit(e)}
       >
@@ -41,7 +48,9 @@ function SignInUser(){
             value={email}
             onChange={e => {
               setEmail(e.target.value);
+              setOnError(false);
             }}
+            className={onError ? styles.input_error : ''}
           />
         </div>
 
@@ -54,7 +63,9 @@ function SignInUser(){
             value={password}
             onChange={e => {
               setPassword(e.target.value);
+              setOnError(false);
             }}
+            className={onError ? styles.input_error : ''}
           />
         </div>
 

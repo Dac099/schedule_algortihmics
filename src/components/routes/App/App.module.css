@@ -2,6 +2,8 @@
 {
   padding: 1.5rem;
   background-color: var(--purple);
+  display: flex;
+  justify-content: space-between;
 }
 
 .nav_options
@@ -43,4 +45,11 @@
   background-color: var(--yellow);
   color: var(--purple);
   border-radius: 0.8rem;
+}
+
+.close_btn
+{
+  background-color: var(--pink);
+  color: #fff;
+  width: 10rem;
 }

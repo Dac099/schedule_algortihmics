@@ -8,8 +8,12 @@ import { InstructorsModal } from "../../InstructorsModal";
 import { InstructorForm } from "../../InstructorForm";
 import { LessonForm } from "../../LessonForm";
 import { LessonTable } from "../../LessonTable";
+import { auth } from "../../../firebase/firebase_sdk";
+import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function Instructors(){
+  const navigate = useNavigate();
   const { 
     instructors, 
     lessons, 
@@ -27,6 +31,11 @@ function Instructors(){
 
 
   React.useEffect(() => {
+    onAuthStateChanged(auth, user => {
+      if(!user){
+        navigate("/signin");
+      }
+    });
 
     if(instructorSelected !== ''){
       setInstructorLessons(

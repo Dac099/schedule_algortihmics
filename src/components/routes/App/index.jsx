@@ -2,6 +2,8 @@ import styles from './App.module.css';
 import { IoCalendarSharp } from "react-icons/io5";
 import { MdClass } from "react-icons/md";
 import { FaChalkboardTeacher } from "react-icons/fa";
+import { LuCalendarOff } from "react-icons/lu";
+import { FaImages } from "react-icons/fa";
 import { 
   Link, 
   Outlet,
@@ -9,15 +11,28 @@ import {
 } from "react-router-dom"
 import { useEffect, useState } from 'react';
 import { Schedule } from "../../Schedule";
+import { useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from "../../../firebase/firebase_sdk";
 
 function App(){
   const location = useLocation();
+  const navigate = useNavigate();
   const [pathSelected, setPathSelected] = useState('/');
 
   useEffect(() => {
+    onAuthStateChanged(auth, user => {
+      if(!user){
+        navigate("/signin");
+      }
+    });
     setPathSelected(location.pathname);
   }, 
   [location]);
+
+  function signOut(){
+    auth.signOut();
+  }
 
   return (
     <>
@@ -59,7 +74,38 @@ function App(){
             </Link>
           </li>
 
+          <li>
+            <Link
+              to={"/daysoff"}
+              className={pathSelected === "/daysoff" ? styles.selected : 'a'}
+            >
+              <LuCalendarOff 
+                className={pathSelected === '/daysoff' ? styles.show : styles.hide}
+              />
+              Days Off
+            </Link>
+          </li>
+          
+          <li>
+            <Link
+              to={"/images"}
+              className={pathSelected === "/images" ? styles.selected : 'a'}
+            >
+              <FaImages
+                className={pathSelected === '/images' ? styles.show : styles.hide}
+              />
+              Imágenes
+            </Link>
+          </li>
+
         </ul>
+
+        <button 
+          onClick={signOut}
+          className={styles.close_btn}
+        >
+          Salir
+        </button>
       </nav>
 
       {location.pathname === '/' 
