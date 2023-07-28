@@ -1,8 +1,11 @@
 import React from "react";
+import styles from "./Images.module.css";
 
 function Images() {
   return (
-    <article>Crear las secciones para cambiar las imagenes del langin page</article>
+    <article className="container">
+      
+    </article>
   )
 }
 

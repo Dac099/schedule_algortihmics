@@ -14,6 +14,7 @@ import { SignInUser } from './components/routes/SignIn'
 import { DaysOff } from './components/routes/DaysOff'
 import { Images } from './components/routes/Images'
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,10 +46,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AppContextProvider>
-      <LessonsProvider>
-        <RouterProvider router={router}/>
-      </LessonsProvider>
-    </AppContextProvider>
+      <AppContextProvider>
+        <LessonsProvider>
+          <RouterProvider router={router}/>
+        </LessonsProvider>
+      </AppContextProvider>
   </React.StrictMode>,
 )

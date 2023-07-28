@@ -1,0 +1,113 @@
+.container
+{
+  max-width: 900px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container__calendar
+{
+  border-bottom: 2px solid var(--purple);   
+}
+
+.container__calendar h2
+{
+  font-size: 2.8rem;
+  color: var(--purple);
+  text-align: center;
+}
+
+.container__calendar p 
+{
+  text-align: center;
+  color: var(--pink);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+
+.form_date
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.form_date input
+{
+  width: 300px;
+  cursor: pointer;
+  color: var(--purple);
+  font-weight: bold;
+}
+
+.form_date button
+{
+  width: 300px;
+  cursor: pointer;
+  border: 2px solid var(--purple);
+  background-color: var(--yellow);
+  color: var(--purple);
+  margin-bottom: 10px;
+}
+
+.form_date button:hover
+{
+  background-color: var(--pink);
+  color: #fff;
+}
+.container__days h2
+{
+  font-size: 2rem;
+  color: var(--purple);
+}
+
+.container__day_cards
+{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.day_card
+{
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--purple);
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  background-color: rgba(96, 43, 122, 0.2);
+  border-radius: 8px;
+  width: 250px;
+  cursor: pointer;
+}
+
+.day_card:hover
+{
+  border: 1px solid var(--pink);
+}
+
+.delete_btn
+{
+  font-size: 3rem;
+  color: var(--pink);
+  cursor: pointer;
+}
+
+p.empty_error
+{
+  font-size: 1.2rem;
+}
+
+.container input.input_empty
+{
+  border: 2px solid var(--pink);
+}

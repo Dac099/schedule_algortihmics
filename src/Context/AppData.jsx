@@ -1,6 +1,11 @@
 import React from "react";
 const AppContext = React.createContext();
-import { getAllInstructors, getAllLessons, getTrialLessons } from "../firebase/firestore";
+import { 
+  getAllInstructors, 
+  getAllLessons, 
+  getTrialLessons,
+  getDaysOff 
+} from "../firebase/firestore";
 
 function AppContextProvider({children}){
   const [ instructors, setInstructors ] = React.useState([]);
@@ -9,6 +14,7 @@ function AppContextProvider({children}){
   const [ onError, setOnError ] = React.useState(false);
   const [ fetchData, setFetchData ] = React.useState(false);
   const [ trialLessons, setTrialLessons ] = React.useState([]);
+  const [ daysOff, setDaysOff ] = React.useState([]);
 
   React.useEffect(() => {
     async function fetchAppData(){
@@ -17,6 +23,7 @@ function AppContextProvider({children}){
         setInstructors(await getAllInstructors());        
         setLessons(await getAllLessons());
         setTrialLessons(await getTrialLessons());
+        setDaysOff(await getDaysOff());
         setIsLoading(false);
 
       } catch (error) {
@@ -45,7 +52,8 @@ function AppContextProvider({children}){
         onError,
         fetchData,
         setFetchData,
-        trialLessons
+        trialLessons,
+        daysOff
       }}
     >
       {children}

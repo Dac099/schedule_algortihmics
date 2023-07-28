@@ -8,7 +8,7 @@
   background-color: var(--purple);
 }
 
-form
+.container form
 {
   border: 3px solid var(--yellow);
   padding: 2rem;
@@ -19,21 +19,21 @@ form
   background-color: #fff;
 }
 
-form div
+.container form div
 {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-form label
+.container form label
 {
   font-weight: bold;
   font-size: 2rem;
   color: var(--purple);
 }
 
-form input
+.container form input
 {
   height: 6rem;
   width: 30rem;
@@ -53,7 +53,7 @@ form input
   outline: none;
 }
 
-form button
+.container form button
 {
   width: 50%;
   height: 6rem;
@@ -64,7 +64,7 @@ form button
   color: #fff;
 }
 
-form button:hover
+.contaier form button:hover
 {
   transform: scale(1.2);
 }

@@ -8,7 +8,8 @@ import {
   addDoc,
   setDoc, 
   where,
-  deleteDoc
+  deleteDoc,
+  Timestamp
 } from 'firebase/firestore';
 import { app } from './firebase_sdk';
 
@@ -146,6 +147,43 @@ async function deleteTrialLesson(lesson){
   }
 }
 
+async function getDaysOff(){  
+  try {
+    const querySnapshot = await getDocs(collection(db, "days_off"));
+
+    const days = querySnapshot.docs.map(doc => {
+      return {
+        ...doc.data(),
+        id: doc.id
+      };
+    })
+
+    return days;
+  } catch (error) {
+    console.error(new Error(error).message);
+  }
+}
+
+async function deleteDayOff(day_id){
+  try {
+    await deleteDoc(doc(db, "days_off", day_id))
+  } catch (error) {
+    console.error(new Error(error).message);    
+  }
+}
+
+async function addDayOff(day_off){
+  try {
+    const docRef = await addDoc(collection(db, 'days_off'), {
+      day: day_off
+    })
+
+    return docRef;
+  } catch (error) {
+    console.error(new Error(error).message);    
+  }
+}
+
 export {
   getAllLessons,
   getAllInstructors,
@@ -157,4 +195,7 @@ export {
   getTrialLessons,
   updateTrialLesson,
   deleteTrialLesson,
+  getDaysOff,
+  deleteDayOff, 
+  addDayOff
 };
