@@ -13,7 +13,7 @@ function DaysOff(){
   const navigate = useNavigate();
   const { daysOff, setFetchData, fetchData } = React.useContext(AppContext);
   const [ newDate, setNewDate ] = React.useState('');
-  const [ emptyField, setEmptyField ] = React.useState(true);
+  const [ emptyField, setEmptyField ] = React.useState(false);
 
   React.useEffect(() => {
     onAuthStateChanged(auth, user => {
