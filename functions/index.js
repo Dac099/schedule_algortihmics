@@ -6,7 +6,7 @@ const phone = require('phone');
 admin.initializeApp();
 
 const accountSid = 'AC212ddc140e6e6ab2c859c5cc676ca384';
-const authToken = 'fd8a89f169296deea9b9eba9301eecf2';
+const authToken = 'a424a3d8b09037c4c59efcdeda9cdace';
 const client = twilio(accountSid, authToken);
 
 exports.sendWhatsAppOnDocumentCreate = functions.firestore
@@ -33,7 +33,7 @@ exports.sendWhatsAppOnDocumentCreate = functions.firestore
         return null;
       })
       .catch((error) => {
-        console.error('Error al enviar el mensaje de WhatsApp:', error);
+        console.error('Error al enviar el mensaje de WhatsApp:', error.msg);
         console.error(phoneFormat164);
         return null;
       });
