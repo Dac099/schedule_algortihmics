@@ -24,12 +24,12 @@ exports.sendWhatsAppOnDocumentCreate = functions.firestore
     const message = {
       body: `Tu cita para la clase de ${lesson_name} a quedado agendada para el día ${lesson_date} a las ${lesson_start} horas.`,
       from: 'whatsapp:+15307974758',
-      to: `whatsapp:${phoneNumber}`
+      to: `whatsapp:${phoneFormat164}`
     };
 
     return client.messages.create(message)
       .then(() => {
-        console.log('Mensaje de WhatsApp enviado con éxito.');
+        console.log('Mensaje enviado');
         return null;
       })
       .catch((error) => {
