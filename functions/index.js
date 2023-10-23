@@ -5,8 +5,8 @@ const phone = require('phone');
 
 admin.initializeApp();
 
-const accountSid = 'AC669229b2f4c305758454aefd57593014';
-const authToken = '5856a9818d8694726dac0d5cf185e060';
+const accountSid = 'AC212ddc140e6e6ab2c859c5cc676ca384';
+const authToken = 'fd8a89f169296deea9b9eba9301eecf2';
 const client = twilio(accountSid, authToken);
 
 exports.sendWhatsAppOnDocumentCreate = functions.firestore
