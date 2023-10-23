@@ -14,13 +14,16 @@ exports.sendWhatsAppOnDocumentCreate = functions.firestore
   .onCreate(async (snapshot, context) => {
     const newDocumentData = snapshot.data();
     const phoneNumber = newDocumentData.parent_phone;
+    const lesson_name = newDocumentData.lesson;
+    const lesson_date = newDocumentData.date;
+    const lesson_start = newDocumentData.hours[0];
     const phoneFormat164 = phone.phone(phoneNumber, {
       country: "MEX"
     }).phoneNumber;
 
     const message = {
-      body: 'Tu clase muestra a quedado agendada',
-      from: 'whatsapp:+14155238886',
+      body: `Tu cita para la clase de ${lesson_name} a quedado agendada para el día ${lesson_date} a las ${lesson_start} horas.`,
+      from: 'whatsapp:+15307974758',
       to: `whatsapp:${phoneFormat164}`
     };
 
