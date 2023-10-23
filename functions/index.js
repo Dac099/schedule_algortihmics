@@ -33,8 +33,7 @@ exports.sendWhatsAppOnDocumentCreate = functions.firestore
         return null;
       })
       .catch((error) => {
-        console.error('Error al enviar el mensaje de WhatsApp:', error.msg);
-        console.error(phoneFormat164);
+        console.error('Prueba de que si están cambiando las funciones');
         return null;
       });
   });
