@@ -24,7 +24,7 @@ exports.sendWhatsAppOnDocumentCreate = functions.firestore
     const message = {
       body: `Tu cita para la clase de ${lesson_name} a quedado agendada para el día ${lesson_date} a las ${lesson_start} horas.`,
       from: 'whatsapp:+15307974758',
-      to: `whatsapp:${phoneFormat164}`
+      to: `whatsapp:${phoneNumber}`
     };
 
     return client.messages.create(message)
