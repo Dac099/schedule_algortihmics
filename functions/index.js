@@ -14,26 +14,29 @@ exports.sendWhatsAppOnDocumentCreate = functions.firestore
   .onCreate(async (snapshot, context) => {
     const newDocumentData = snapshot.data();
     const phoneNumber = newDocumentData.parent_phone;
-    const lesson_name = newDocumentData.lesson;
-    const lesson_date = newDocumentData.date;
+    const lesson_name = newDocumentData.lesson.toLowerCase();
+    const lesson_date = newDocumentData.date.toLowerCase();
     const lesson_start = newDocumentData.hours[0];
     const phoneFormat164 = phone.phone(phoneNumber, {
       country: "MEX"
     }).phoneNumber;
 
+    const msg_body = `Tu cita para la clase de ${lesson_name} a quedado agendada para el día ${lesson_date} a las ${lesson_start} horas. `;
+
     const message = {
-      body: `Tu cita para la clase de ${lesson_name} a quedado agendada para el día ${lesson_date} a las ${lesson_start} horas.`,
+      body: msg_body,
       from: 'whatsapp:+15307974758',
       to: `whatsapp:${phoneFormat164}`
     };
 
     return client.messages.create(message)
       .then(() => {
-        console.log('Mensaje enviado');
+        console.log('Mensaje enviado: ', msg_body);
         return null;
       })
       .catch((error) => {
-        console.error('Prueba de que si están cambiando las funciones');
+        console.error('Error enviando mensaje');
+        console.log(error.message);
         return null;
       });
   });
