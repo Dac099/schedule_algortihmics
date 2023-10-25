@@ -20,10 +20,14 @@ function AppContextProvider({children}){
     async function fetchAppData(){
       try {
 
-        setInstructors(await getAllInstructors());        
-        setLessons(await getAllLessons());
-        setTrialLessons(await getTrialLessons());
-        setDaysOff(await getDaysOff());
+        const [ instructors, lessons, trialLessons, daysOff ] = await Promise.all([
+          getAllInstructors(), getAllLessons(), getTrialLessons(),getDaysOff()
+        ]);
+
+        setInstructors(instructors);        
+        setLessons(lessons);
+        setTrialLessons(trialLessons);
+        setDaysOff(daysOff);
         setIsLoading(false);
 
       } catch (error) {

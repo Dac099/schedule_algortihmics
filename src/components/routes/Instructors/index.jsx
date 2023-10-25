@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 function Instructors(){
   const navigate = useNavigate();
+  
   const { 
     instructors, 
     lessons, 
@@ -21,6 +22,7 @@ function Instructors(){
     onError,
     setFetchData,
   } = React.useContext(AppContext);
+
   const [ instructorSelected, setInstructorSelected ] = React.useState('');
   const [instructorLessons, setInstructorLessons] = React.useState([]);
   const [ showModal, setShowModal ] = React.useState(false);

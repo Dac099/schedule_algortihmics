@@ -1,17 +1,22 @@
 .nav_container
 {
-  padding: 1.5rem;
+  padding: 1rem;
+  width: 100vw;
   background-color: var(--purple);
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .nav_options
 {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .nav_options li a{
@@ -23,11 +28,18 @@
   text-decoration: none;
   color: black;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: var(--white);
   padding: 0.5rem;
   
+}
+
+.menu_icon
+{
+  font-size: 3rem;
+  color: var(--white);
+  display: none;
 }
 
 .show
@@ -52,4 +64,20 @@
   background-color: var(--pink);
   color: #fff;
   width: 10rem;
+  display: grid;
+  place-content: center;
+}
+
+
+@media screen and (max-width: 768px)
+{
+  .menu_icon
+  {
+    display: block;
+  }
+
+  .nav_options
+  {
+    display: none;
+  }
 }

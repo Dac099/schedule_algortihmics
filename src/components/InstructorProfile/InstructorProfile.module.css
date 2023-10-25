@@ -9,6 +9,7 @@
   padding: 1rem 0.5rem;
   background-color: var(--yellow);
   cursor: default;
+  color: var(--pink);
 }
 
 .instructor_card__hover

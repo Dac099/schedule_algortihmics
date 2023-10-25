@@ -21,7 +21,7 @@ function LessonForm({
     id: ''
   });
 
-  const [ startHour, setStartHour ] = React.useState("00:00");
+  const [ startHour, setStartHour ] = React.useState("09:00");
   const [ endHour, setEndHour ] = React.useState("00:00");
   
   const avilableHours = [
@@ -47,6 +47,8 @@ function LessonForm({
   function handleSubmit(e){
     e.preventDefault();
     const schedule  = createHoursArray(startHour, endHour);
+    console.log(startHour, endHour)
+    console.log(schedule)
 
     const new_lesson_data = {
       ...lessonData,

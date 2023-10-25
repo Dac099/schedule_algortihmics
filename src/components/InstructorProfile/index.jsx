@@ -1,6 +1,5 @@
 import { HiUserCircle } from "react-icons/hi2";
 import styles from "./InstructorProfile.module.css";
-import uniqolor from 'uniqolor';
 import { AiFillEdit } from "react-icons/ai";
 
 
@@ -36,9 +35,6 @@ function InstructorProfile({
     >
 
       <HiUserCircle 
-        style={{
-          color: uniqolor.random().color
-        }}
         className={styles.user_picture}
       />
 

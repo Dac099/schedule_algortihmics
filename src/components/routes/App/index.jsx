@@ -4,6 +4,8 @@ import { MdClass } from "react-icons/md";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { LuCalendarOff } from "react-icons/lu";
 import { FaImages } from "react-icons/fa";
+import { HiMenu } from "react-icons/hi";
+import { GoSignOut } from "react-icons/go";
 import { 
   Link, 
   Outlet,
@@ -14,11 +16,13 @@ import { Schedule } from "../../Schedule";
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from "../../../firebase/firebase_sdk";
+import { ModalMenu } from '../../modalMenu';
 
 function App(){
   const location = useLocation();
   const navigate = useNavigate();
   const [pathSelected, setPathSelected] = useState('/');
+  const [ showModal, setShowModal ] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
@@ -34,9 +38,14 @@ function App(){
     auth.signOut();
   }
 
+  function closeModal(){
+    setShowModal(false);
+  }
+
   return (
     <>
-      <nav className={styles.nav_container}>
+      <nav className={styles.nav_container}> 
+
         <ul className={styles.nav_options}>
           <li>
             <Link 
@@ -97,23 +106,33 @@ function App(){
               Imágenes
             </Link>
           </li>
-
         </ul>
+
+        <HiMenu 
+          className={styles.menu_icon}
+          onClick={() => setShowModal(true)}
+        />
 
         <button 
           onClick={signOut}
           className={styles.close_btn}
         >
-          Salir
+          <GoSignOut />
         </button>
       </nav>
 
-      {location.pathname === '/' 
+      { showModal &&
+        <ModalMenu
+          closeModal={closeModal}
+        />
+      }
+
+      {/* {location.pathname === '/' 
         ? <Schedule /> 
         : <article>
             <Outlet />
           </article>
-      }
+      } */}
     </>
   )
 }
