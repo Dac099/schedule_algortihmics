@@ -88,6 +88,6 @@ section .title
 
   .lessons_container
   {
-    max-height: 300px;
+    max-height: 250px;
   }
 }

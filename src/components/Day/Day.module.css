@@ -52,7 +52,7 @@
 
 .data_lessons > p span
 {
-  background-color: var(--pink);
+  background-color: var(--purple);
   height: 25px;
   color: #FFF;
   display: grid;
@@ -60,6 +60,15 @@
   border-radius: 50%;
   padding: 0.2rem;
   font-weight: bold;
+}
+
+p > span.trialLessons{
+  background-color: var(--pink);
+}
+
+.active{
+  background-color: var(--pink);
+  color: var(--white);
 }
 
 
@@ -82,6 +91,7 @@
     display: none;
   }
 }
+
 
 @media screen and (max-width: 530px){
   .date_number

@@ -20,7 +20,7 @@ function Schedule(){
     lessons,
     instructors,
     isLoading,
-    onError
+    onError,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -37,6 +37,7 @@ function Schedule(){
   function filterLessonsByDay(day){
     return lessons.filter(lesson => lesson.day === day);
   }
+
 
   if(isLoading){
     return (
