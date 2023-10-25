@@ -1,6 +1,7 @@
 .instructor_card
 {
   display: flex;
+  width: 300px;
   justify-content: space-between;
   align-items: center;
   margin: 1rem 0rem;
@@ -40,7 +41,6 @@
 {
   grid-area: picture;
   font-size: 6rem;
-  min-width: 6rem;
 }
 
 .user_data .instructor_name
@@ -77,4 +77,17 @@
 {
   color: var(--yellow);
   background-color: var(--purple);
+}
+
+@media screen and (max-width: 760px)
+{
+  .user_picture
+  {
+    font-size: 3rem;
+  }
+
+  .user_data .instructor_name
+  {
+    font-size: 1.4rem;
+  }
 }

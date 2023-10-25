@@ -1,9 +1,11 @@
 import styles from "./Day.module.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LessonsContext } from "../../Context/Lessons";
 
 function Day({date, lessons}){
   const {setShowModal, setLessonsData} = useContext(LessonsContext);
+  const [ day, setDay ] = useState(`${date.split(' ')[1]} ${date.split(' ')[2]}`);
+  const [ dayNumber, setDayNumber ] = useState(date.split(' ')[2]);
 
   if(date === ''){
     return (
@@ -27,7 +29,8 @@ function Day({date, lessons}){
       }}
     >
 
-      <p className={styles.date}>{date}</p>
+      <p className={styles.date}>{day}</p>
+      <p className={styles.date_number}>{dayNumber}</p>
 
       <section className={styles.data_lessons}>
 

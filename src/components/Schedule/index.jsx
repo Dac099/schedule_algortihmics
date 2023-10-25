@@ -54,27 +54,7 @@ function Schedule(){
 
   return (
     <article className={styles.calendar_container}>
-      <section className={styles.instructors_section}>
-
-        <p
-          className={styles.section_title}
-        >
-          Maestros 
-        </p>
-
-        <section className={styles.instructors_container}>
-          {instructors.map(instructor => (
-            <InstructorProfile 
-              key={instructor.name}
-              data={instructor}
-              onEdit={false}
-            />
-          ))}
-        </section>
-
-      </section>
-
-      <section className={styles.calendar_section}>
+            <section className={styles.calendar_section}>
         <p
           className={styles.section_title}
         >
@@ -126,6 +106,26 @@ function Schedule(){
           />
         </article>
       </section>  
+
+      <section className={styles.instructors_section}>
+
+        <p
+          className={styles.section_title}
+        >
+          Maestros 
+        </p>
+
+        <section className={styles.instructors_container}>
+          {instructors.map(instructor => (
+            <InstructorProfile 
+              key={instructor.name}
+              data={instructor}
+              onEdit={false}
+            />
+          ))}
+        </section>
+
+      </section>
       {showModal && <LessonsModal />}
     </article>
   )

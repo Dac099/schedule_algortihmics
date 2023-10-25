@@ -127,12 +127,12 @@ function App(){
         />
       }
 
-      {/* {location.pathname === '/' 
+      {location.pathname === '/' 
         ? <Schedule /> 
         : <article>
             <Outlet />
           </article>
-      } */}
+      }
     </>
   )
 }

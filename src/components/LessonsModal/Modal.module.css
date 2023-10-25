@@ -12,7 +12,7 @@
   color: #000;
   padding: 0rem 2rem;
   padding-top: 4rem;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .close_btn
@@ -38,6 +38,8 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 1.5rem;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 section .title
@@ -63,4 +65,29 @@ section .title
   border: 1px solid var(--purple);
   font-size: 1.6rem;
   padding: 0.5rem 1rem;
+}
+
+
+@media screen and (max-width: 768px)
+{
+  .modal_container
+  {
+    grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+    padding: 0px;
+    padding-top: 4rem;
+  }
+
+  section .title
+  {
+    width: 80%;
+    justify-self: center;
+    margin: 40px auto 10px auto;
+
+  }
+
+  .lessons_container
+  {
+    max-height: 300px;
+  }
 }
