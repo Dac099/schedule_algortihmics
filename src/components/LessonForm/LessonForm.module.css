@@ -5,7 +5,7 @@
   display: grid;
   grid-template-rows: repeat(4, 10rem) 5rem;
   gap: 1rem;
-  width: 37rem;
+  width: 350px;
 }
 
 .lesson_form div

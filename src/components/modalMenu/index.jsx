@@ -20,75 +20,84 @@ export const ModalMenu = ({closeModal}) => {
 
   return (
     createPortal(
-      <article className={styles.modal}>
-        <HiMenu 
-          onClick={closeModal}
-          className={styles.menu_icon}
-        />
-        <nav>
-          <ul className={styles.nav_options}>
-            <li>
-              <Link 
-                to={"/"} 
-                className={pathSelected === '/' ? styles.selected : 'a'}
-              >
-                <IoCalendarSharp 
-                  className={pathSelected === '/' ? styles.show : styles.hide}
-                />
-                Calendario
-              </Link>
-            </li>
-            
-            <li>
-              <Link 
-                to={"/clases"} 
-                className={pathSelected === '/clases' ? styles.selected : 'a'}
-              >
-                <MdClass 
-                  className={pathSelected === '/clases' ? styles.show : styles.hide}
-                />
-                Clases Muestra
-              </Link>
-            </li>
+      <section 
+        className={styles.modal_container}
+        onClick={() => {
+          setTimeout(() => {
+            closeModal();
+          }, 200);
+        }}
+      >
+        <article className={styles.modal}>
+          <HiMenu 
+            onClick={closeModal}
+            className={styles.menu_icon}
+          />
+          <nav>
+            <ul className={styles.nav_options}>
+              <li>
+                <Link 
+                  to={"/"} 
+                  className={pathSelected === '/' ? styles.selected : 'a'}
+                >
+                  <IoCalendarSharp 
+                    className={pathSelected === '/' ? styles.show : styles.hide}
+                  />
+                  Calendario
+                </Link>
+              </li>
+              
+              <li>
+                <Link 
+                  to={"/clases"} 
+                  className={pathSelected === '/clases' ? styles.selected : 'a'}
+                >
+                  <MdClass 
+                    className={pathSelected === '/clases' ? styles.show : styles.hide}
+                  />
+                  Clases Muestra
+                </Link>
+              </li>
 
-            <li>
-              <Link 
-                to={"/instructores"} 
-                className={pathSelected === '/instructores' ? styles.selected : 'a'}
-              >
-                <FaChalkboardTeacher 
-                  className={pathSelected === '/instructores' ? styles.show : styles.hide}
-                />
-                Instructores
-              </Link>
-            </li>
+              <li>
+                <Link 
+                  to={"/instructores"} 
+                  className={pathSelected === '/instructores' ? styles.selected : 'a'}
+                >
+                  <FaChalkboardTeacher 
+                    className={pathSelected === '/instructores' ? styles.show : styles.hide}
+                  />
+                  Instructores
+                </Link>
+              </li>
 
-            <li>
-              <Link
-                to={"/daysoff"}
-                className={pathSelected === "/daysoff" ? styles.selected : 'a'}
-              >
-                <LuCalendarOff 
-                  className={pathSelected === '/daysoff' ? styles.show : styles.hide}
-                />
-                Days Off
-              </Link>
-            </li>
-            
-            <li>
-              <Link
-                to={"/images"}
-                className={pathSelected === "/images" ? styles.selected : 'a'}
-              >
-                <FaImages
-                  className={pathSelected === '/images' ? styles.show : styles.hide}
-                />
-                Imágenes
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </article>,
+              <li>
+                <Link
+                  to={"/daysoff"}
+                  className={pathSelected === "/daysoff" ? styles.selected : 'a'}
+                >
+                  <LuCalendarOff 
+                    className={pathSelected === '/daysoff' ? styles.show : styles.hide}
+                  />
+                  Days Off
+                </Link>
+              </li>
+              
+              <li>
+                <Link
+                  to={"/images"}
+                  className={pathSelected === "/images" ? styles.selected : 'a'}
+                >
+                  <FaImages
+                    className={pathSelected === '/images' ? styles.show : styles.hide}
+                  />
+                  Imágenes
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </article>
+      </section>,
       document.getElementById('modal')
     )
   );

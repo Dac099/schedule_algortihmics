@@ -5,7 +5,7 @@
   border-radius: 0.8rem;
   display: grid;
   grid-template-rows: 2fr 2fr 50px;
-  width: 370px;
+  width: 360px;
   box-shadow: 2px 1px 0px 1px gray;
   gap: 2rem;
 }

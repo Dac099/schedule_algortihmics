@@ -60,7 +60,7 @@ function DaysOff(){
 
       <section className={styles.container__calendar}>
         <h2>Selecciona el día que no se agendarán clases muestra</h2>
-        <p>Por defecto los todos los Domingos no están disponibles</p>
+        <p>Por defecto todos los Domingos no están disponibles</p>
         <form
           onSubmit={e => handleSubmit(e)}
           className={styles.form_date}
