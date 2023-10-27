@@ -2,12 +2,14 @@
 {
   display: flex;
   width: 300px;
+  min-width: 280px;
+  height: 100px;
   justify-content: space-between;
   align-items: center;
   margin: 1rem 0rem;
   border: 0.2rem solid var(--purple);
   border-radius: 1rem;
-  padding: 1rem 0.5rem;
+  padding: 0.5rem 0.5rem;
   background-color: var(--yellow);
   cursor: default;
   color: var(--pink);
@@ -17,8 +19,8 @@
 {
   display: grid;
   grid-template-areas: 
-  "picture picture name name"
-  "edit edit edit edit";
+  "picture name name name"
+  "picture edit edit edit";
   gap: 0.2rem;
   margin: 1rem 0rem;
   border: 0.2rem solid var(--purple);

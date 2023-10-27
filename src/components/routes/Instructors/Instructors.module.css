@@ -1,52 +1,83 @@
 .container
 {
-  display: grid;
-  grid-template-columns: 20% 80%;
-  gap: 1rem;
-  padding: 1rem;
+  padding: 10px;
 }
 
-.container__instructors
+.container__instructors_title
+{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.container__instructors_cards
+{
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.container__lessons_no_instructors
+{
+  font-size: 1.8rem;
+  width: 100%;
+  max-width: 1024px;
+  padding: 5px;
+  background-color: rgb(207, 207, 207);
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.container__lessons_no_instructors div:nth-child(1)
+{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container__lessons_no_instructors svg
+{
+  color: var(--pink);
+  cursor: pointer;
+}
+
+.lessons_without_instructors_container
 {
   display: grid;
-  min-width: 25rem;
-  max-width: 30rem;
-  grid-auto-rows: min-content;
-  gap: 1rem;
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, 280px);
+  grid-auto-rows: 180px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.add_instructor__btn
+{
+  margin: 1rem 0rem;
+  height: 100px;
+  border-radius: 0.8rem;
+  border: 2px solid var(--purple);
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: var(--pink);
+  cursor: pointer;
+}
+
+.add_instructor__btn:hover
+{
+  border: 2px solid var(--pink);
+  background-color: var(--purple);
+  box-shadow: 1px 1px 0px 1px var(--pink);
 }
 
 .container__lessons
 {
   display: grid;
-  grid-template-columns: repeat(5, minmax(10rem, 18rem));
+  grid-template-columns: repeat(auto-fit, 160px);
   justify-content: center;
   grid-auto-rows: 150px;
-  gap: 1rem;
-  /* padding-right: 1rem; */
-}
-
-.container__lessons_no_intructor
-{
-  display: grid;
-  grid-template-rows: 30px 1fr;
-  padding-right: 1rem;
-}
-
-.container__lessons_no_intructor .title
-{
-  font-weight: bold;
-  font-size: 2.5rem;
-  text-align: center;
-}
-
-.container__lessons_no_intructor .lessons
-{
-  display: grid;
-  grid-template-columns: repeat(6, minmax(10rem, 20rem));
-  grid-auto-rows: 150px;
-  gap: 1rem;
-  justify-content: center;
+  gap: 10px;
 }
 
 .add_btn
@@ -55,7 +86,6 @@
   height: 8rem;
   align-self: center;
   justify-self: center;
-  border-radius: 50%;
   cursor: pointer;
   border: 1px solid var(--purple);
   font-weight: bold;
@@ -78,41 +108,29 @@
   place-content: center;
 }
 
-.add_instructor__btn
+.instructors_lessons__text
 {
-  height: 6rem;
-  border-radius: 0.8rem;
-  border: 2px solid var(--purple);
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: var(--pink);
-  cursor: pointer;
-}
-
-.add_instructor__btn:hover
-{
-  border: 2px solid var(--pink);
-  background-color: var(--purple);
-  box-shadow: 1px 1px 0px 1px var(--pink);
-}
-
-.no_intructor__btn
-{
-  height: 6rem;
-  border-radius: 0.8rem;
-  border: 2px solid var(--pink);
-  font-size: 1.8rem;
-  font-weight: bold;
+  text-align: center;
+  font-size: 1.6rem;
   color: var(--purple);
-  background-color: var(--yellow);
-  cursor: pointer;
+  font-style: italic;
 }
 
-.no_intructor__btn:hover
+.marsbot
 {
-  border-color: var(--yellow);
-  background-color: var(--purple);
-  color: #fff;
-  box-shadow: 1px 1px 0px 1px var(--yellow);
+  display: block;
+  width: 80%;
+  max-width: 300px;
+  margin: 40px auto;
+  animation: bounce 1s infinite alternate ease-in;
+}
+
+@keyframes bounce {
+  0%{
+    transform: translateY(-20px);
+  }
+
+  100%{
+    transform: translateY(20px);
+  }
 }
