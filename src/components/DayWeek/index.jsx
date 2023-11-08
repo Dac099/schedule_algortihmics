@@ -4,7 +4,6 @@ import { Day } from "../Day";
 
 
 function DayWeek({dates, day, lessons, dayMonth, dayReference}){
-  
   lessons = orderLessonsByHours(lessons);
  
   if(dayMonth < dayReference){

@@ -5,6 +5,7 @@
   cursor: pointer;
   display: grid;
   grid-template-rows: 20% 80%;
+  min-height: 100px;
 }
 
 .date
@@ -78,6 +79,7 @@ p > span.trialLessons{
     display: block;
     height: 40px;
     grid-template-rows: none;
+    min-height: 40px;
   }
 
   .date
@@ -94,6 +96,11 @@ p > span.trialLessons{
 
 
 @media screen and (max-width: 530px){
+  .day_card
+  {
+    min-height: 40px;
+  }
+
   .date_number
   {
     display: grid;
