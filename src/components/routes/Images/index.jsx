@@ -8,8 +8,7 @@ function Images() {
   const [ fileList, setFileList ] = useState(null);
   const [ fileName, setFileName ] = useState('');
   const [ onError, setOnError ] = useState(false);
-  const [ onLoad, setOnLoad ] = useState(false);
-  // const [ onErro, ]
+
 
   function openInputImg(){
     setShowInputImg(true);
