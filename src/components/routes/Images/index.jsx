@@ -1,9 +1,15 @@
 import styles from "./Images.module.css";
 import { useState } from "react";
+import { UploadImage } from "../../../firebase/storage";
 
 function Images() {
-  const [showInputImg, setShowInputImg] = useState(false);
+  const [ showInputImg, setShowInputImg ] = useState(false);
   const [ expand, setExpand ] = useState(false);
+  const [ fileList, setFileList ] = useState(null);
+  const [ fileName, setFileName ] = useState('');
+  const [ onError, setOnError ] = useState(false);
+  const [ onLoad, setOnLoad ] = useState(false);
+  // const [ onErro, ]
 
   function openInputImg(){
     setShowInputImg(true);
@@ -11,6 +17,25 @@ function Images() {
 
   function closeInputImg(){
     setShowInputImg(false);
+  }
+
+  function handleUploadImages(){
+    if(fileName.trim().length < 1){
+      setOnError(true);
+      return;
+    }
+
+    const file_promises = [];                
+
+    for(let i=0; i < fileList.length; i++){
+      file_promises.push(UploadImage(fileList[i], fileName));
+    }
+
+    Promise.all(file_promises)
+    .finally(() => {
+      closeInputImg();
+      setExpand(false);
+    });
   }
 
   return (
@@ -34,7 +59,7 @@ function Images() {
         </button>
 
         {showInputImg &&
-          <article className={styles.new_file__container}>
+          <article className={onError ? `${styles.new_file__container} ${styles.error}` : styles.new_file__container}>
 
             <section>
               <label htmlFor="file_name">Nombre para la imagen</label>
@@ -43,7 +68,15 @@ function Images() {
                 type="text" 
                 name="file_name" 
                 id="file_name"   
+                onChange={e => {
+                  setFileName(e.target.value);
+                  setOnError(false);
+                }}
               />
+
+              {onError &&
+                <p className={styles.text_error}>La imagen debe de tener nombre</p>
+              }
             </section>
 
             <section className={styles.file_input}>
@@ -53,13 +86,14 @@ function Images() {
                 name="file" 
                 id="file" 
                 multiple
-                onChange={e => console.log(e.target.files)}
+                onChange={e => setFileList(e.target.files)}
               />
             </section>
 
             <button 
               type="button"
               className={styles.upload_btn}
+              onClick={handleUploadImages}
             >
               Subir
             </button>
