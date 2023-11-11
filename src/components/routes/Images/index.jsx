@@ -1,19 +1,20 @@
 import styles from "./Images.module.css";
 import { useState } from "react";
 import { UploadImage } from "../../../firebase/storage";
+import { useContext } from "react";
+import { AppContext } from "../../../Context/AppData";
+import { ImageCard } from "../../imageCard";
 
 function Images() {
+  const { imagesList } = useContext(AppContext);
   const [ showInputImg, setShowInputImg ] = useState(false);
   const [ expand, setExpand ] = useState(false);
   const [ fileList, setFileList ] = useState(null);
   const [ fileName, setFileName ] = useState('');
   const [ onError, setOnError ] = useState(false);
-
-
   function openInputImg(){
     setShowInputImg(true);
   }
-
   function closeInputImg(){
     setShowInputImg(false);
   }
@@ -102,8 +103,16 @@ function Images() {
 
       <hr />
 
-      <section>
-
+      <section className={styles.images__container}>
+        {imagesList !== undefined &&
+          imagesList.map(image => (
+            <ImageCard 
+              key={image.path}
+              img_url={image.url}
+              img_path={image.path}
+            />
+          ))
+        }
       </section>
     </article>
   )

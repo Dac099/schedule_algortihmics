@@ -1,0 +1,35 @@
+.card
+{
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+  border: 2px solid var(--purple);
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.card img
+{
+  width: 100%;
+}
+
+.card button
+{
+  font-size: 1.4rem;
+  display: flex; 
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+  padding: 0px 5px;
+  color: var(--purple);
+  background-color: var(--yellow);
+}
+.card button:hover
+{
+  color: var(--pink);
+}
+
+.delete__icon
+{
+  font-size: 30px;
+}

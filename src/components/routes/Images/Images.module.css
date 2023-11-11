@@ -98,3 +98,13 @@ input.file_name
   font-size: 1.4rem;
   font-weight: bold;
 }
+
+.images__container
+{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 320px));
+  grid-template-rows: auto;
+  gap: 20px;
+  justify-content: center;
+}
