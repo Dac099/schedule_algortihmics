@@ -184,6 +184,31 @@ async function addDayOff(day_off){
   }
 }
 
+export const getHoursDB = async() => {
+  try {
+    const querySnapshot = await getDocs(collection(db, 'hours'));
+    const hours = querySnapshot.docs.map(doc => doc.data());
+
+    return hours[0];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const defineHoursDB = async(startHour, endHour) => {
+  try {
+    const id = 'n0QGMok2ZwbCA0O3kBzK';
+    const newHours = {
+      startHour,
+      endHour
+    }
+
+    await setDoc(doc(db, 'hours', id), newHours);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export {
   getAllLessons,
   getAllInstructors,
@@ -197,5 +222,5 @@ export {
   deleteTrialLesson,
   getDaysOff,
   deleteDayOff, 
-  addDayOff
+  addDayOff,
 };

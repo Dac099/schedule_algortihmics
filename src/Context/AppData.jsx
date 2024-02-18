@@ -4,7 +4,8 @@ import {
   getAllInstructors, 
   getAllLessons, 
   getTrialLessons,
-  getDaysOff 
+  getDaysOff,
+  getHoursDB
 } from "../firebase/firestore";
 import { getImagesList } from "../firebase/storage";
 
@@ -17,13 +18,14 @@ function AppContextProvider({children}){
   const [ trialLessons, setTrialLessons ] = React.useState([]);
   const [ daysOff, setDaysOff ] = React.useState([]);
   const [ imagesList, setImagesList ] = React.useState();
+  const [ dbHours, setDbHours ] = React.useState([]);
 
   React.useEffect(() => {
     async function fetchAppData(){
       try {
 
-        const [ instructors, lessons, trialLessons, daysOff, images ] = await Promise.all([
-          getAllInstructors(), getAllLessons(), getTrialLessons(),getDaysOff(), getImagesList()
+        const [ instructors, lessons, trialLessons, daysOff, images, hours ] = await Promise.all([
+          getAllInstructors(), getAllLessons(), getTrialLessons(),getDaysOff(), getImagesList(), getHoursDB()
         ]);
 
         setInstructors(instructors);        
@@ -32,6 +34,7 @@ function AppContextProvider({children}){
         setDaysOff(daysOff);
         setIsLoading(false);
         setImagesList(images);
+        setDbHours(hours);
 
       } catch (error) {
         
@@ -61,7 +64,8 @@ function AppContextProvider({children}){
         setFetchData,
         trialLessons,
         daysOff,
-        imagesList
+        imagesList,
+        dbHours
       }}
     >
       {children}

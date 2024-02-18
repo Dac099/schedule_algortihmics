@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../../../Loading";
 import { Error } from "../../Error";
+import { HourSetter } from "../../HoursSetter";
 
 function Lessons(){
   const navigate = useNavigate();
@@ -36,28 +37,38 @@ function Lessons(){
 
   if(trialLessons.length < 1){
     return (
-      <article className={styles.empty_lessons}>
-        <h2>Aún no hay clases muestra</h2>
-      </article>
+      <section>
+
+        <HourSetter />
+
+        <article className={styles.empty_lessons}>
+          <h2>Aún no hay clases muestra</h2>
+        </article>
+      </section>
     );
   }
 
   return (
-    <article className={styles.lessons_container}>
-      {trialLessons.map(lesson => (
-        <TrialLessonTable 
-          key={lesson.id}
-          lesson={lesson}
-          setData={setLessonSelected}
-          setShowModal={setShowModal}
-        />
-      ))}
+    <section>
 
-      {showModal &&
-        <TrialLessonModal lessonSelected={lessonSelected} setShowModal={setShowModal}/>
-      }
+      <HourSetter />
 
-    </article>
+      <article className={styles.lessons_container}>
+        {trialLessons.map(lesson => (
+          <TrialLessonTable 
+            key={lesson.id}
+            lesson={lesson}
+            setData={setLessonSelected}
+            setShowModal={setShowModal}
+          />
+        ))}
+
+        {showModal &&
+          <TrialLessonModal lessonSelected={lessonSelected} setShowModal={setShowModal}/>
+        }
+
+      </article>
+    </section>
   );
 }
 

@@ -1,0 +1,43 @@
+.container
+{
+  background-color: var(--yellow);
+  height: 50px;
+  padding: 0px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 2rem;
+  color: var(--purple);
+}
+
+.selects
+{
+  width: 310px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+select
+{
+  border-radius: 5px;
+  background-color: var(--purple);
+  color: white;
+  position: relative;
+}
+
+button
+{
+  height: 30px;
+  font-weight: 400;
+  font-size: 1.4rem;
+  background-color: var(--pink);
+  color: white;
+}
+
+@media screen and (max-width: 600px){
+  .container{
+    justify-content: center;
+  }
+}
